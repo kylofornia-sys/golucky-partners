@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Partner | Go Lucky Free Range Eggs</title>
+    <meta name="description" content="Apply to become a Go Lucky supply partner. Tiered pricing, weekly deliveries, and the freshest free range eggs in the Western Cape.">
+    <link rel="icon" type="image/png" href="https://golucky.co.za/happy-egg-transparent.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           GO LUCKY PARTNERS — partners.golucky.co.za
+           Brand System: Legend Design Language
+           ============================================ */
+
+        :root {
+            --orange: #f89921;
+            --orange-dark: #e08610;
+            --orange-light: rgba(248,153,33,0.08);
+            --blue: #4278bd;
+            --blue-dark: #36649e;
+            --blue-light: rgba(66,120,189,0.08);
+            --cream: #ede9e6;
+            --cream-dark: #e0dad6;
+            --black: #231f20;
+            --white: #ffffff;
+            --gray: #6b6563;
+            --green: #2d8a4e;
+            --red: #c0392b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--black);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+
+        img { max-width: 100%; height: auto; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ---- COLOR BAR ---- */
+        .color-bar { display: flex; height: 4px; width: 100%; }
+        .color-bar div { flex: 1; }
+        .cb-blue { background: var(--blue); }
+        .cb-orange { background: var(--orange); }
+        .cb-cream { background: var(--cream); }
+        .cb-black { background: var(--black); }
+
+        /* ---- NAV ---- */
+        .nav {
+            background: var(--white);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 8px rgba(35,31,32,0.06);
+        }
+
+        .nav .color-bar { position: absolute; bottom: 0; left: 0; }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo img { height: 38px; width: auto; }
+
+        .nav-links { display: flex; align-items: center; gap: 1.8rem; }
+
+        .nav-links a {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--black); }
+
+        .nav-cta {
+            background: var(--blue);
+            color: var(--white) !important;
+            padding: 0.55rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            font-size: 0.82rem !important;
+            transition: all 0.3s !important;
+            box-shadow: 0 2px 10px rgba(66,120,189,0.25);
+        }
+
+        .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+        .mobile-toggle {
+            display: none; background: none; border: none; cursor: pointer; padding: 4px;
+        }
+        .mobile-toggle span {
+            display: block; width: 22px; height: 2px;
+            background: var(--black); margin: 5px 0; transition: all 0.3s; border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle { display: block; }
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--white); flex-direction: column;
+                padding: 1.5rem 2rem; gap: 1.2rem;
+                border-top: 1px solid var(--cream);
+                box-shadow: 0 8px 24px rgba(35,31,32,0.08);
+            }
+            .nav-links.open { display: flex; }
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(248,153,33,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-pre {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 em { color: var(--orange); font-style: normal; }
+
+        .hero p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.7;
+            opacity: 0.9;
+            max-width: 540px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.85rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(248,153,33,0.35);
+        }
+
+        .hero-cta:hover { background: var(--orange-dark); transform: translateY(-2px); }
+
+        /* ---- SECTIONS ---- */
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ---- HOW IT WORKS ---- */
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .how-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(35,31,32,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(35,31,32,0.1); }
+
+        .how-card.recommended {
+            border: 2px solid var(--orange);
+        }
+
+        .how-card.recommended::before {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            background: var(--orange);
+            color: var(--white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            padding: 0.35rem;
+        }
+
+        .how-card.recommended { padding-top: 3rem; }
+
+        .how-icon {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.4rem;
+        }
+
+        .how-card:nth-child(1) .how-icon { background: var(--orange-light); color: var(--orange); }
+        .how-card:nth-child(2) .how-icon { background: var(--blue-light); color: var(--blue); }
+        .how-card:nth-child(3) .how-icon { background: rgba(35,31,32,0.06); color: var(--black); }
+
+        .how-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .how-tier-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 0.8rem;
+        }
+
+        .how-card p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .how-detail {
+            font-size: 0.8rem;
+            padding: 0.8rem;
+            background: var(--cream);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .how-detail strong { color: var(--black); }
+
+        .how-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0.8rem 0 0.2rem;
+        }
+
+        .how-price-note {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .how-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+        }
+
+        /* ---- TERMS ACCORDION ---- */
+        .terms-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 2px 12px rgba(35,31,32,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .terms-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            color: var(--blue);
+        }
+
+        .term-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--cream);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .term-item:last-child { border-bottom: none; }
+
+        .term-item strong { color: var(--black); }
+
+        /* ---- APPLICATION FORM ---- */
+        .form-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 2px 12px rgba(35,31,32,0.05);
+        }
+
+        .form-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .form-section .form-sub {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        .form-group label .req { color: var(--red); }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1.5px solid var(--cream-dark);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: var(--black);
+            background: var(--white);
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(66,120,189,0.1);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 80px; }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6563' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .form-divider {
+            border: none;
+            border-top: 1px solid var(--cream);
+            margin: 2rem 0;
+        }
+
+        .form-divider-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 1.2rem;
+        }
+
+        /* Tier selector cards */
+        .tier-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .tier-selector { grid-template-columns: 1fr; }
+        }
+
+        .tier-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tier-option input { position: absolute; opacity: 0; pointer-events: none; }
+
+        .tier-option .tier-card {
+            border: 2px solid var(--cream-dark);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.2s;
+            background: var(--white);
+        }
+
+        .tier-option input:checked + .tier-card {
+            border-color: var(--blue);
+            background: var(--blue-light);
+            box-shadow: 0 0 0 3px rgba(66,120,189,0.15);
+        }
+
+        .tier-option .tier-card:hover {
+            border-color: var(--blue);
+        }
+
+        .tier-card-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .tier-card-detail {
+            font-size: 0.72rem;
+            color: var(--gray);
+        }
+
+        .tier-card-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 0.4rem;
+        }
+
+        /* Debit order section */
+        .debit-section {
+            background: var(--orange-light);
+            border: 1.5px solid rgba(248,153,33,0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .debit-section.visible { display: block; }
+
+        .debit-section h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--orange-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px; height: 18px;
+            margin-top: 2px;
+            accent-color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        /* Signature */
+        .sig-pad-wrap {
+            border: 1.5px solid var(--cream-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            background: var(--white);
+        }
+
+        .sig-pad-wrap canvas {
+            display: block;
+            width: 100%;
+            height: 150px;
+            cursor: crosshair;
+        }
+
+        .sig-clear {
+            position: absolute;
+            top: 8px; right: 8px;
+            background: var(--cream);
+            border: none;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .sig-placeholder {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--cream-dark);
+            font-size: 0.85rem;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        /* Submit */
+        .form-submit {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(66,120,189,0.25);
+            margin-top: 1.5rem;
+        }
+
+        .form-submit:hover { background: var(--blue-dark); transform: translateY(-1px); }
+        .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* Success state */
+        .success-banner {
+            display: none;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .success-banner.visible { display: block; }
+
+        .success-banner h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-banner p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        /* ---- FOOTER ---- */
+        .footer {
+            background: var(--black);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.78rem;
+        }
+
+        .footer a { color: var(--orange); }
+    </style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="https://golucky.co.za" class="nav-logo">
+            <img src="https://golucky.co.za/golucky-logo-black.png" alt="Go Lucky">
+        </a>
+        <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open'); this.classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="#tiers">Pricing Tiers</a>
+            <a href="#terms">Terms</a>
+            <a href="#apply" class="nav-cta">Apply Now</a>
+        </div>
+    </div>
+    <div class="color-bar"><div class="cb-blue"></div><div class="cb-orange"></div><div class="cb-cream"></div><div class="cb-black"></div></div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-pre">Partner Supply Program</div>
+        <h1>Become a <em>Go Lucky</em> Partner</h1>
+        <p>Fresh or we replace. Join our supply network and get the Western Cape's finest free range eggs delivered to your door, every week.</p>
+        <a href="#apply" class="hero-cta">Start Your Application</a>
+    </div>
+</section>
+
+<!-- ========== TIER PRICING ========== -->
+<section class="section" id="tiers">
+    <h2 class="section-title">Choose Your Partnership Tier</h2>
+    <p class="section-sub">The faster you pay, the less you pay. Our tiered model rewards partners who align with the Go Lucky Flow.</p>
+
+    <div class="how-grid">
+        <!-- Tier 1 -->
+        <div class="how-card recommended">
+            <div class="how-icon">&#9889;</div>
+            <div class="how-tier-label">Tier 1</div>
+            <h3>Go Lucky Flow</h3>
+            <p>Weekly debit order, hands-free. Your stock arrives, payment collects automatically 7 days later.</p>
+            <div class="how-detail"><strong>Payment:</strong> Weekly Debit Order</div>
+            <div class="how-detail"><strong>Terms:</strong> Net 7 Days from Invoice</div>
+            <div class="how-price">Base Price</div>
+            <div class="how-price-note">Our best price guarantee</div>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="how-card">
+            <div class="how-icon">&#128178;</div>
+            <div class="how-tier-label">Tier 2</div>
+            <h3>Standard</h3>
+            <p>Monthly EFT on statement. Ideal for businesses with 30-day payment cycles already in place.</p>
+            <div class="how-detail"><strong>Payment:</strong> EFT</div>
+            <div class="how-detail"><strong>Terms:</strong> Net 30 Days from Statement</div>
+            <div class="how-price">Base + 5%</div>
+            <div class="how-price-note">Subject to credit approval</div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="how-card">
+            <div class="how-icon">&#127970;</div>
+            <div class="how-tier-label">Tier 3</div>
+            <h3>Corporate</h3>
+            <p>Extended 60-day terms for large-volume corporate accounts with established trade references.</p>
+            <div class="how-detail"><strong>Payment:</strong> EFT</div>
+            <div class="how-detail"><strong>Terms:</strong> Net 60 Days from Statement</div>
+            <div class="how-price">Base + 10%</div>
+            <div class="how-price-note">Subject to credit approval</div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TERMS ========== -->
+<section class="section" id="terms">
+    <h2 class="section-title">Supply Agreement Terms</h2>
+    <p class="section-sub">Transparency first. Here are the terms that govern every Go Lucky partnership.</p>
+
+    <div class="terms-section">
+        <h3>Agreement Conditions</h3>
+        <div class="term-item"><strong>Standing Order:</strong> Tier 1 partners agree to a minimum weekly standing order. Adjustments must be communicated 48 hours prior to delivery.</div>
+        <div class="term-item"><strong>Retention of Title:</strong> Ownership of all goods remains with Go Lucky Free Range until full payment has been received.</div>
+        <div class="term-item"><strong>Cession of Proceeds:</strong> If goods are sold prior to payment, the proceeds are deemed held in trust for Go Lucky Free Range and are ceded as security for the debt.</div>
+        <div class="term-item"><strong>Automatic Suspension:</strong> Supply is automatically suspended if payment is not received by the due date (e.g., bounced debit order or late EFT). Reinstatement may require COD terms.</div>
+        <div class="term-item"><strong>Price Adjustments:</strong> Go Lucky reserves the right to adjust the Base Price in line with farm gate cost increases. Partners will be notified 7 days in advance.</div>
+        <div class="term-item"><strong>Late Payment Interest:</strong> Tier 2 & 3 accounts are subject to 2.5% per month interest on any late payments beyond agreed terms.</div>
+        <div class="term-item"><strong>Freshness Guarantee:</strong> Fresh or we replace &mdash; every delivery, every time. If you're not happy with the quality, we make it right.</div>
+    </div>
+</section>
+
+<!-- ========== APPLICATION FORM ========== -->
+<section class="section" id="apply">
+    <h2 class="section-title">Partner Application</h2>
+    <p class="section-sub">Fill out the form below and we'll be in touch within 24 hours.</p>
+
+    <!-- Success message (hidden by default) -->
+    <div class="success-banner" id="successBanner">
+        <h3>Application Submitted!</h3>
+        <p>Thank you for applying to become a Go Lucky partner. Kyle will review your application and be in touch within 24 hours.</p>
+    </div>
+
+    <form class="form-section" id="partnerForm" novalidate>
+
+        <!-- Business Information -->
+        <h3>1. Business Information</h3>
+        <p class="form-sub">Tell us about your business.</p>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Business / Trading Name <span class="req">*</span></label>
+                <input type="text" name="business_name" required placeholder="e.g. The Hungry Chef">
+            </div>
+            <div class="form-group">
+                <label>Business Type</label>
+                <select name="business_type">
+                    <option value="">Select...</option>
+                    <option>Restaurant / Cafe</option>
+                    <option>Hotel / Guesthouse</option>
+                    <option>Retailer / Deli</option>
+                    <option>Bakery / Patisserie</option>
+                    <option>Caterer</option>
+                    <option>Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Registration Number</label>
+                <input type="text" name="reg_number" placeholder="e.g. 2020/123456/07">
+            </div>
+            <div class="form-group">
+                <label>VAT Number</label>
+                <input type="text" name="vat_number" placeholder="If registered">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Physical / Delivery Address <span class="req">*</span></label>
+            <textarea name="delivery_address" rows="2" required placeholder="Street address where deliveries will be made"></textarea>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Contact Information -->
+        <div class="form-divider-label">2. Contact Information</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Contact Person <span class="req">*</span></label>
+                <input type="text" name="contact_name" required placeholder="Full name">
+            </div>
+            <div class="form-group">
+                <label>Position / Role</label>
+                <input type="text" name="contact_role" placeholder="e.g. Owner, Manager, Chef">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Mobile Number <span class="req">*</span></label>
+                <input type="tel" name="contact_mobile" required placeholder="e.g. 083 642 4645">
+            </div>
+            <div class="form-group">
+                <label>Email Address <span class="req">*</span></label>
+                <input type="email" name="contact_email" required placeholder="accounts@yourbusiness.co.za">
+            </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Tier Selection -->
+        <div class="form-divider-label">3. Select Your Tier</div>
+
+        <div class="tier-selector">
+            <label class="tier-option">
+                <input type="radio" name="selected_tier" value="tier_1" checked>
+                <div class="tier-card">
+                    <div class="tier-card-name">Go Lucky Flow</div>
+                    <div class="tier-card-detail">Net 7 &middot; Debit Order</div>
+                    <div class="tier-card-price" style="color: var(--orange)">Base Price</div>
+                </div>
+            </label>
+            <label class="tier-option">
+                <input type="radio" name="selected_tier" value="tier_2">
+                <div class="tier-card">
+                    <div class="tier-card-name">Standard</div>
+                    <div class="tier-card-detail">Net 30 &middot; EFT</div>
+                    <div class="tier-card-price" style="color: var(--blue)">Base + 5%</div>
+                </div>
+            </label>
+            <label class="tier-option">
+                <input type="radio" name="selected_tier" value="tier_3">
+                <div class="tier-card">
+                    <div class="tier-card-name">Corporate</div>
+                    <div class="tier-card-detail">Net 60 &middot; EFT</div>
+                    <div class="tier-card-price">Base + 10%</div>
+                </div>
+            </label>
+        </div>
+
+        <!-- Debit Order Mandate (Tier 1 only) -->
+        <div class="debit-section visible" id="debitSection">
+            <h4>Debit Order Mandate (Required for Tier 1)</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Account Holder Name <span class="req">*</span></label>
+                    <input type="text" name="bank_holder" placeholder="As it appears on your bank account">
+                </div>
+                <div class="form-group">
+                    <label>Bank Name <span class="req">*</span></label>
+                    <select name="bank_name">
+                        <option value="">Select bank...</option>
+                        <option>FNB</option>
+                        <option>Standard Bank</option>
+                        <option>Nedbank</option>
+                        <option>ABSA</option>
+                        <option>Capitec</option>
+                        <option>Investec</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Account Number <span class="req">*</span></label>
+                    <input type="text" name="bank_account" placeholder="Account number">
+                </div>
+                <div class="form-group">
+                    <label>Branch Code <span class="req">*</span></label>
+                    <input type="text" name="bank_branch" placeholder="e.g. 250655">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Account Type</label>
+                    <select name="bank_type">
+                        <option value="">Select...</option>
+                        <option>Cheque / Current</option>
+                        <option>Savings</option>
+                        <option>Business</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Collection Day</label>
+                    <select name="collection_day">
+                        <option value="">Select...</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Estimated Volume -->
+        <div class="form-divider-label">4. Supply Details</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Estimated Weekly Volume</label>
+                <select name="weekly_volume">
+                    <option value="">Select...</option>
+                    <option>1 &ndash; 5 trays (30-egg trays)</option>
+                    <option>6 &ndash; 15 trays</option>
+                    <option>16 &ndash; 30 trays</option>
+                    <option>31 &ndash; 60 trays</option>
+                    <option>60+ trays</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Preferred Delivery Day</label>
+                <select name="delivery_day">
+                    <option value="">Select...</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Anything else we should know?</label>
+            <textarea name="notes" rows="3" placeholder="Special requirements, product preferences, etc."></textarea>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Agreement & Signature -->
+        <div class="form-divider-label">5. Agreement & Signature</div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="agreeTerms" name="agree_terms" required>
+            <label for="agreeTerms">I have read and agree to the <a href="#terms" style="color: var(--blue); text-decoration: underline;">Go Lucky Partner Supply Agreement Terms</a> as outlined above. I understand that pricing is determined by my selected tier and that late payments are subject to interest charges. <span class="req">*</span></label>
+        </div>
+
+        <div class="checkbox-group" id="agreeDebitWrap">
+            <input type="checkbox" id="agreeDebit" name="agree_debit">
+            <label for="agreeDebit">I authorise Go Lucky Free Range (CC) to issue debit order instructions to my bank for collection against the account provided above, in accordance with the terms of this agreement.</label>
+        </div>
+
+        <div class="form-group">
+            <label>Signature <span class="req">*</span></label>
+            <div class="sig-pad-wrap">
+                <canvas id="sigCanvas"></canvas>
+                <span class="sig-placeholder" id="sigPlaceholder">Sign here with your finger or mouse</span>
+                <button type="button" class="sig-clear" onclick="clearSig()">Clear</button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Print Name <span class="req">*</span></label>
+                <input type="text" name="print_name" required placeholder="Your full name">
+            </div>
+            <div class="form-group">
+                <label>Designation</label>
+                <input type="text" name="designation" placeholder="e.g. Owner, Director, Manager">
+            </div>
+        </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">Submit Partner Application</button>
+    </form>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="color-bar" style="margin-bottom: 1.5rem;"><div class="cb-blue"></div><div class="cb-orange"></div><div class="cb-cream"></div><div class="cb-black"></div></div>
+    <p>&copy; 2026 Go Lucky Free Range (CC) &middot; Reg No: 2007/157032/23 &middot; VAT: 4610290712</p>
+    <p style="margin-top: 0.3rem;"><a href="https://golucky.co.za">golucky.co.za</a> &middot; <a href="mailto:freerange@golucky.co.za">freerange@golucky.co.za</a> &middot; 083 642 4645</p>
+</footer>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const SUPABASE_URL = "https://wyrpcvlfrndcloyzxxty.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5cnBjdmxmcm5kY2xveXp4eHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI3MTAsImV4cCI6MjA4NzAxODcxMH0.ZjB6G7al2_BqFHfWfXVgb7QGF4yPmGdfvKvm45hwLr0";
+
+const HEADERS = {
+    "Content-Type": "application/json",
+    apikey: SUPABASE_KEY,
+    Authorization: `Bearer ${SUPABASE_KEY}`,
+    Prefer: "return=minimal"
+};
+
+// ─── SIGNATURE PAD ────────────────────────────────────────────────────────────
+const canvas = document.getElementById('sigCanvas');
+const ctx = canvas.getContext('2d');
+const placeholder = document.getElementById('sigPlaceholder');
+let drawing = false;
+let hasSigned = false;
+
+function resizeCanvas() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = 150;
+    ctx.strokeStyle = '#231f20';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+}
+
+canvas.addEventListener('mousedown', e => { drawing = true; ctx.beginPath(); ctx.moveTo(getPos(e).x, getPos(e).y); });
+canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSigned = true; placeholder.style.opacity = '0'; });
+canvas.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('mouseleave', () => drawing = false);
+
+canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; ctx.beginPath(); ctx.moveTo(getPos(e).x, getPos(e).y); }, { passive: false });
+canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSigned = true; placeholder.style.opacity = '0'; }, { passive: false });
+canvas.addEventListener('touchend', () => drawing = false);
+
+function clearSig() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasSigned = false;
+    placeholder.style.opacity = '1';
+}
+
+// ─── TIER TOGGLE ──────────────────────────────────────────────────────────────
+const tierRadios = document.querySelectorAll('input[name="selected_tier"]');
+const debitSection = document.getElementById('debitSection');
+const agreeDebitWrap = document.getElementById('agreeDebitWrap');
+
+tierRadios.forEach(r => r.addEventListener('change', () => {
+    const isTier1 = document.querySelector('input[name="selected_tier"]:checked').value === 'tier_1';
+    debitSection.classList.toggle('visible', isTier1);
+    agreeDebitWrap.style.display = isTier1 ? 'flex' : 'none';
+}));
+
+// ─── FORM SUBMIT ──────────────────────────────────────────────────────────────
+document.getElementById('partnerForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const btn = document.getElementById('submitBtn');
+
+    // Validate required fields
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(f => {
+        if (!f.value.trim() && f.type !== 'checkbox') { f.style.borderColor = 'var(--red)'; valid = false; }
+        else if (f.type === 'checkbox' && !f.checked) { valid = false; }
+        else { f.style.borderColor = ''; }
+    });
+
+    if (!hasSigned) { alert('Please provide your signature.'); return; }
+    if (!valid) { alert('Please fill in all required fields.'); return; }
+
+    // Validate Tier 1 banking fields
+    const tier = form.querySelector('input[name="selected_tier"]:checked').value;
+    if (tier === 'tier_1') {
+        const bankFields = ['bank_holder', 'bank_name', 'bank_account', 'bank_branch'];
+        for (const name of bankFields) {
+            const field = form.querySelector(`[name="${name}"]`);
+            if (!field.value.trim()) {
+                field.style.borderColor = 'var(--red)';
+                valid = false;
+            }
+        }
+        if (!valid) { alert('Please fill in all banking details for the Debit Order Mandate.'); return; }
+        if (!document.getElementById('agreeDebit').checked) {
+            alert('Please authorise the Debit Order Mandate for Tier 1.'); return;
+        }
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    // Build payload
+    const data = {
+        business_name: form.business_name.value.trim(),
+        business_type: form.business_type.value,
+        reg_number: form.reg_number.value.trim(),
+        vat_number: form.vat_number.value.trim(),
+        delivery_address: form.delivery_address.value.trim(),
+        contact_name: form.contact_name.value.trim(),
+        contact_role: form.contact_role.value.trim(),
+        contact_mobile: form.contact_mobile.value.trim(),
+        contact_email: form.contact_email.value.trim(),
+        selected_tier: tier,
+        bank_holder: form.bank_holder?.value.trim() || null,
+        bank_name: form.bank_name?.value || null,
+        bank_account: form.bank_account?.value.trim() || null,
+        bank_branch: form.bank_branch?.value.trim() || null,
+        bank_type: form.bank_type?.value || null,
+        collection_day: form.collection_day?.value || null,
+        weekly_volume: form.weekly_volume.value,
+        delivery_day: form.delivery_day.value,
+        notes: form.notes.value.trim(),
+        signature_data: canvas.toDataURL('image/png'),
+        print_name: form.print_name.value.trim(),
+        designation: form.designation.value.trim(),
+        agree_terms: true,
+        agree_debit: document.getElementById('agreeDebit').checked,
+        status: 'pending',
+        submitted_at: new Date().toISOString()
+    };
+
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/partner_applications`, {
+            method: 'POST',
+            headers: HEADERS,
+            body: JSON.stringify(data)
+        });
+
+        if (!res.ok) {
+            const err = await res.text();
+            throw new Error(err);
+        }
+
+        // Show success
+        form.style.display = 'none';
+        document.getElementById('successBanner').classList.add('visible');
+        window.scrollTo({ top: document.getElementById('apply').offsetTop - 80, behavior: 'smooth' });
+
+    } catch (err) {
+        console.error('Submit error:', err);
+        alert('Something went wrong submitting your application. Please try again or contact us directly at 083 642 4645.');
+        btn.disabled = false;
+        btn.textContent = 'Submit Partner Application';
+    }
+});
+</script>
+
+</body>
+</html>
