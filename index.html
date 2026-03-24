@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Become a Partner | Go Lucky Free Range Eggs</title>
-    <meta name="description" content="Apply to become a Go Lucky supply partner. Tiered pricing, weekly deliveries, and the freshest free range eggs in the Western Cape.">
+    <title>Become a Client | Go Lucky Free Range Eggs</title>
+    <meta name="description" content="Apply to become a Go Lucky client. Tiered pricing, flexible deliveries, and the freshest free range eggs in the Western Cape.">
     <link rel="icon" type="image/png" href="https://golucky.co.za/happy-egg-transparent.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,15 +70,16 @@
         .nav-inner {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0.9rem 2rem;
+            padding: 0 2rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            position: relative;
         }
 
-        .nav-logo img { height: 38px; width: auto; }
+        .nav-logo img { height: 208px; width: auto; margin: -40px 0; display: block; }
 
-        .nav-links { display: flex; align-items: center; gap: 1.8rem; }
+        .nav-links { display: flex; align-items: center; gap: 1.8rem; position: absolute; right: 2rem; }
 
         .nav-links a {
             font-size: 0.82rem;
@@ -125,7 +126,7 @@
 
         /* ---- HERO ---- */
         .hero {
-            padding: 8rem 2rem 4rem;
+            padding: 11rem 2rem 4rem;
             text-align: center;
             background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
             color: var(--white);
@@ -530,43 +531,68 @@
             cursor: pointer;
         }
 
-        /* Signature */
-        .sig-pad-wrap {
-            border: 1.5px solid var(--cream-dark);
+        /* File upload */
+        .file-upload-wrap {
+            border: 2px dashed var(--cream-dark);
             border-radius: 10px;
-            overflow: hidden;
-            position: relative;
+            padding: 1.2rem;
+            text-align: center;
             background: var(--white);
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
         }
 
-        .sig-pad-wrap canvas {
-            display: block;
-            width: 100%;
-            height: 150px;
-            cursor: crosshair;
+        .file-upload-wrap:hover,
+        .file-upload-wrap.dragover {
+            border-color: var(--blue);
+            background: var(--blue-light);
         }
 
-        .sig-clear {
+        .file-upload-wrap input[type="file"] {
             position: absolute;
-            top: 8px; right: 8px;
-            background: var(--cream);
-            border: none;
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--gray);
+            inset: 0;
+            opacity: 0;
             cursor: pointer;
         }
 
-        .sig-placeholder {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--cream-dark);
-            font-size: 0.85rem;
+        .file-upload-label {
+            font-size: 0.82rem;
+            color: var(--gray);
             pointer-events: none;
-            transition: opacity 0.2s;
+        }
+
+        .file-upload-label strong {
+            color: var(--blue);
+        }
+
+        .file-upload-name {
+            font-size: 0.78rem;
+            color: var(--green);
+            font-weight: 600;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .file-upload-name.visible { display: block; }
+
+        /* Credit section (Tier 3) */
+        .credit-section {
+            background: rgba(35,31,32,0.03);
+            border: 1.5px solid rgba(35,31,32,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .credit-section.visible { display: block; }
+
+        .credit-section h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.8rem;
         }
 
         /* Submit */
@@ -633,7 +659,7 @@
 <nav class="nav">
     <div class="nav-inner">
         <a href="https://golucky.co.za" class="nav-logo">
-            <img src="https://golucky.co.za/golucky-logo-black.png" alt="Go Lucky">
+            <img src="https://golucky.co.za/golucky-script-transparent.png" alt="Go Lucky">
         </a>
         <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open'); this.classList.toggle('active')">
             <span></span><span></span><span></span>
@@ -650,8 +676,8 @@
 <!-- ========== HERO ========== -->
 <section class="hero">
     <div class="hero-inner">
-        <div class="hero-pre">Partner Supply Program</div>
-        <h1>Become a <em>Go Lucky</em> Partner</h1>
+        <div class="hero-pre">Client Supply Program</div>
+        <h1>Become a <em>Go Lucky</em> Client</h1>
         <p>Fresh or we replace. Join our supply network and get the Western Cape's finest free range eggs delivered to your door, every week.</p>
         <a href="#apply" class="hero-cta">Start Your Application</a>
     </div>
@@ -659,42 +685,42 @@
 
 <!-- ========== TIER PRICING ========== -->
 <section class="section" id="tiers">
-    <h2 class="section-title">Choose Your Partnership Tier</h2>
-    <p class="section-sub">The faster you pay, the less you pay. Our tiered model rewards partners who align with the Go Lucky Flow.</p>
+    <h2 class="section-title">Choose Your Pricing Tier</h2>
+    <p class="section-sub">The faster you pay, the less you pay. Our tiered model rewards clients who keep things simple.</p>
 
     <div class="how-grid">
-        <!-- Tier 1 -->
-        <div class="how-card recommended">
+        <!-- Tier 1: COD -->
+        <div class="how-card recommended" style="cursor:pointer" onclick="selectTier('tier_1')">
             <div class="how-icon">&#9889;</div>
             <div class="how-tier-label">Tier 1</div>
-            <h3>Go Lucky Flow</h3>
-            <p>Weekly debit order, hands-free. Your stock arrives, payment collects automatically 7 days later.</p>
-            <div class="how-detail"><strong>Payment:</strong> Weekly Debit Order</div>
-            <div class="how-detail"><strong>Terms:</strong> Net 7 Days from Invoice</div>
+            <h3>Cash on Delivery</h3>
+            <p>Pay on delivery &mdash; the simplest way to do business. No credit checks, no paperwork, just fresh eggs and immediate settlement.</p>
+            <div class="how-detail"><strong>Payment:</strong> Cash / EFT on Delivery</div>
+            <div class="how-detail"><strong>Terms:</strong> Immediate (COD)</div>
             <div class="how-price">Base Price</div>
-            <div class="how-price-note">Our best price guarantee</div>
+            <div class="how-price-note">Our best price &mdash; guaranteed</div>
         </div>
 
-        <!-- Tier 2 -->
-        <div class="how-card">
+        <!-- Tier 2: 7-14 Days -->
+        <div class="how-card" style="cursor:pointer" onclick="selectTier('tier_2')">
             <div class="how-icon">&#128178;</div>
             <div class="how-tier-label">Tier 2</div>
-            <h3>Standard</h3>
-            <p>Monthly EFT on statement. Ideal for businesses with 30-day payment cycles already in place.</p>
-            <div class="how-detail"><strong>Payment:</strong> EFT</div>
-            <div class="how-detail"><strong>Terms:</strong> Net 30 Days from Statement</div>
+            <h3>Go Lucky Flow</h3>
+            <p>Weekly debit order or short-term EFT. Your stock arrives, payment settles within 7&ndash;14 days. Hands-free and hassle-free.</p>
+            <div class="how-detail"><strong>Payment:</strong> Debit Order / EFT</div>
+            <div class="how-detail"><strong>Terms:</strong> Net 7 &ndash; 14 Days from Invoice</div>
             <div class="how-price">Base + 5%</div>
-            <div class="how-price-note">Subject to credit approval</div>
+            <div class="how-price-note">Debit order mandate required</div>
         </div>
 
-        <!-- Tier 3 -->
-        <div class="how-card">
+        <!-- Tier 3: 30-60 Days -->
+        <div class="how-card" style="cursor:pointer" onclick="selectTier('tier_3')">
             <div class="how-icon">&#127970;</div>
             <div class="how-tier-label">Tier 3</div>
-            <h3>Corporate</h3>
-            <p>Extended 60-day terms for large-volume corporate accounts with established trade references.</p>
+            <h3>Credit Account</h3>
+            <p>Extended 30&ndash;60 day terms for established businesses with trade references. Subject to strict credit vetting and approval.</p>
             <div class="how-detail"><strong>Payment:</strong> EFT</div>
-            <div class="how-detail"><strong>Terms:</strong> Net 60 Days from Statement</div>
+            <div class="how-detail"><strong>Terms:</strong> Net 30 &ndash; 60 Days from Statement</div>
             <div class="how-price">Base + 10%</div>
             <div class="how-price-note">Subject to credit approval</div>
         </div>
@@ -704,29 +730,29 @@
 <!-- ========== TERMS ========== -->
 <section class="section" id="terms">
     <h2 class="section-title">Supply Agreement Terms</h2>
-    <p class="section-sub">Transparency first. Here are the terms that govern every Go Lucky partnership.</p>
+    <p class="section-sub">Transparency first. Here are the terms that govern every Go Lucky client agreement.</p>
 
     <div class="terms-section">
         <h3>Agreement Conditions</h3>
-        <div class="term-item"><strong>Standing Order:</strong> Tier 1 partners agree to a minimum weekly standing order. Adjustments must be communicated 48 hours prior to delivery.</div>
+        <div class="term-item"><strong>Standing Order:</strong> Clients with Tier 2 or 3 accounts agree to a minimum weekly standing order. Adjustments must be communicated 48 hours prior to delivery.</div>
         <div class="term-item"><strong>Retention of Title:</strong> Ownership of all goods remains with Go Lucky Free Range until full payment has been received.</div>
         <div class="term-item"><strong>Cession of Proceeds:</strong> If goods are sold prior to payment, the proceeds are deemed held in trust for Go Lucky Free Range and are ceded as security for the debt.</div>
         <div class="term-item"><strong>Automatic Suspension:</strong> Supply is automatically suspended if payment is not received by the due date (e.g., bounced debit order or late EFT). Reinstatement may require COD terms.</div>
-        <div class="term-item"><strong>Price Adjustments:</strong> Go Lucky reserves the right to adjust the Base Price in line with farm gate cost increases. Partners will be notified 7 days in advance.</div>
-        <div class="term-item"><strong>Late Payment Interest:</strong> Tier 2 & 3 accounts are subject to 2.5% per month interest on any late payments beyond agreed terms.</div>
+        <div class="term-item"><strong>Price Adjustments:</strong> Go Lucky reserves the right to adjust the Base Price in line with farm gate cost increases. Clients will be notified 7 days in advance.</div>
+        <div class="term-item"><strong>Late Payment Interest:</strong> Tier 3 credit accounts are subject to 2.5% per month interest on any late payments beyond agreed terms.</div>
         <div class="term-item"><strong>Freshness Guarantee:</strong> Fresh or we replace &mdash; every delivery, every time. If you're not happy with the quality, we make it right.</div>
     </div>
 </section>
 
 <!-- ========== APPLICATION FORM ========== -->
 <section class="section" id="apply">
-    <h2 class="section-title">Partner Application</h2>
+    <h2 class="section-title">Client Application</h2>
     <p class="section-sub">Fill out the form below and we'll be in touch within 24 hours.</p>
 
     <!-- Success message (hidden by default) -->
     <div class="success-banner" id="successBanner">
-        <h3>Application Submitted!</h3>
-        <p>Thank you for applying to become a Go Lucky partner. Kyle will review your application and be in touch within 24 hours.</p>
+        <h3>Application Received</h3>
+        <p>Thank you &mdash; your application has been received. A member of the Go Lucky team will be in touch within a few hours.</p>
     </div>
 
     <form class="form-section" id="partnerForm" novalidate>
@@ -792,8 +818,9 @@
                 <input type="tel" name="contact_mobile" required placeholder="e.g. 083 642 4645">
             </div>
             <div class="form-group">
-                <label>Email Address <span class="req">*</span></label>
+                <label>Accounts Email Address <span class="req">*</span></label>
                 <input type="email" name="contact_email" required placeholder="accounts@yourbusiness.co.za">
+                <span style="font-size:0.72rem; color:var(--gray); margin-top:0.2rem; display:block;">This is where invoices and statements will be sent</span>
             </div>
         </div>
 
@@ -806,32 +833,32 @@
             <label class="tier-option">
                 <input type="radio" name="selected_tier" value="tier_1" checked>
                 <div class="tier-card">
-                    <div class="tier-card-name">Go Lucky Flow</div>
-                    <div class="tier-card-detail">Net 7 &middot; Debit Order</div>
+                    <div class="tier-card-name">Cash on Delivery</div>
+                    <div class="tier-card-detail">COD &middot; Immediate</div>
                     <div class="tier-card-price" style="color: var(--orange)">Base Price</div>
                 </div>
             </label>
             <label class="tier-option">
                 <input type="radio" name="selected_tier" value="tier_2">
                 <div class="tier-card">
-                    <div class="tier-card-name">Standard</div>
-                    <div class="tier-card-detail">Net 30 &middot; EFT</div>
+                    <div class="tier-card-name">Go Lucky Flow</div>
+                    <div class="tier-card-detail">Net 7&ndash;14 &middot; Debit Order</div>
                     <div class="tier-card-price" style="color: var(--blue)">Base + 5%</div>
                 </div>
             </label>
             <label class="tier-option">
                 <input type="radio" name="selected_tier" value="tier_3">
                 <div class="tier-card">
-                    <div class="tier-card-name">Corporate</div>
-                    <div class="tier-card-detail">Net 60 &middot; EFT</div>
+                    <div class="tier-card-name">Credit Account</div>
+                    <div class="tier-card-detail">Net 30&ndash;60 &middot; EFT</div>
                     <div class="tier-card-price">Base + 10%</div>
                 </div>
             </label>
         </div>
 
-        <!-- Debit Order Mandate (Tier 1 only) -->
-        <div class="debit-section visible" id="debitSection">
-            <h4>Debit Order Mandate (Required for Tier 1)</h4>
+        <!-- Debit Order Mandate (Tier 2 only) -->
+        <div class="debit-section" id="debitSection">
+            <h4>Debit Order Mandate (Required for Go Lucky Flow)</h4>
             <div class="form-row">
                 <div class="form-group">
                     <label>Account Holder Name <span class="req">*</span></label>
@@ -885,6 +912,49 @@
             </div>
         </div>
 
+        <!-- Credit Application (Tier 3 only) -->
+        <div class="credit-section" id="creditSection">
+            <h4>Credit Application (Required for Credit Account)</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Director Full Name <span class="req">*</span></label>
+                    <input type="text" name="director_name" placeholder="Full legal name of director">
+                </div>
+                <div class="form-group">
+                    <label>Director ID Number <span class="req">*</span></label>
+                    <input type="text" name="director_id" placeholder="SA ID number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Director Personal Address <span class="req">*</span></label>
+                <textarea name="director_address" rows="2" placeholder="Residential address of director"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Trade Reference 1 — Business Name</label>
+                    <input type="text" name="trade_ref_1_name" placeholder="e.g. ABC Suppliers">
+                </div>
+                <div class="form-group">
+                    <label>Trade Reference 1 — Contact Number</label>
+                    <input type="tel" name="trade_ref_1_contact" placeholder="e.g. 021 555 1234">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Trade Reference 2 — Business Name</label>
+                    <input type="text" name="trade_ref_2_name" placeholder="e.g. XYZ Distributors">
+                </div>
+                <div class="form-group">
+                    <label>Trade Reference 2 — Contact Number</label>
+                    <input type="tel" name="trade_ref_2_contact" placeholder="e.g. 021 555 5678">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Monthly Credit Limit Requested (Rands)</label>
+                <input type="number" name="credit_limit_requested" placeholder="e.g. 10000" min="0" step="500">
+            </div>
+        </div>
+
         <hr class="form-divider">
 
         <!-- Estimated Volume -->
@@ -903,7 +973,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Preferred Delivery Day</label>
+                <label>Preferred Delivery Schedule</label>
                 <select name="delivery_day">
                     <option value="">Select...</option>
                     <option>Monday</option>
@@ -912,6 +982,7 @@
                     <option>Thursday</option>
                     <option>Friday</option>
                     <option>Saturday</option>
+                    <option>Multiple deliveries per week</option>
                 </select>
             </div>
         </div>
@@ -923,12 +994,36 @@
 
         <hr class="form-divider">
 
+        <!-- Document Uploads -->
+        <div class="form-divider-label">5. Document Uploads</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Upload ID Document <span class="req">*</span></label>
+                <div class="file-upload-wrap">
+                    <input type="file" name="id_document" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff" required>
+                    <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF</div>
+                    <div class="file-upload-name" id="idDocName"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Upload Company Registration <span class="req" id="regDocReq">*</span></label>
+                <div class="file-upload-wrap">
+                    <input type="file" name="registration_doc" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff">
+                    <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF</div>
+                    <div class="file-upload-name" id="regDocName"></div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="form-divider">
+
         <!-- Agreement & Signature -->
-        <div class="form-divider-label">5. Agreement & Signature</div>
+        <div class="form-divider-label">6. Agreement & Signature</div>
 
         <div class="checkbox-group">
             <input type="checkbox" id="agreeTerms" name="agree_terms" required>
-            <label for="agreeTerms">I have read and agree to the <a href="#terms" style="color: var(--blue); text-decoration: underline;">Go Lucky Partner Supply Agreement Terms</a> as outlined above. I understand that pricing is determined by my selected tier and that late payments are subject to interest charges. <span class="req">*</span></label>
+            <label for="agreeTerms">I have read and agree to the <a href="#terms" style="color: var(--blue); text-decoration: underline;">Go Lucky Client Supply Agreement Terms</a> as outlined above. I understand that pricing is determined by my selected tier and that late payments are subject to interest charges. <span class="req">*</span></label>
         </div>
 
         <div class="checkbox-group" id="agreeDebitWrap">
@@ -937,11 +1032,11 @@
         </div>
 
         <div class="form-group">
-            <label>Signature <span class="req">*</span></label>
-            <div class="sig-pad-wrap">
-                <canvas id="sigCanvas"></canvas>
-                <span class="sig-placeholder" id="sigPlaceholder">Sign here with your finger or mouse</span>
-                <button type="button" class="sig-clear" onclick="clearSig()">Clear</button>
+            <label>Upload Signature (photo or scan of your handwritten signature) <span class="req">*</span></label>
+            <div class="file-upload-wrap">
+                <input type="file" name="signature_file" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff" required>
+                <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF — a clear photo of your handwritten signature</div>
+                <div class="file-upload-name" id="sigFileName"></div>
             </div>
         </div>
 
@@ -956,7 +1051,7 @@
             </div>
         </div>
 
-        <button type="submit" class="form-submit" id="submitBtn">Submit Partner Application</button>
+        <button type="submit" class="form-submit" id="submitBtn">Submit Client Application</button>
     </form>
 </section>
 
@@ -964,72 +1059,105 @@
 <footer class="footer">
     <div class="color-bar" style="margin-bottom: 1.5rem;"><div class="cb-blue"></div><div class="cb-orange"></div><div class="cb-cream"></div><div class="cb-black"></div></div>
     <p>&copy; 2026 Go Lucky Free Range (CC) &middot; Reg No: 2007/157032/23 &middot; VAT: 4610290712</p>
-    <p style="margin-top: 0.3rem;"><a href="https://golucky.co.za">golucky.co.za</a> &middot; <a href="mailto:freerange@golucky.co.za">freerange@golucky.co.za</a> &middot; 083 642 4645</p>
+    <p style="margin-top: 0.3rem;"><a href="https://golucky.co.za">golucky.co.za</a> &middot; <a href="mailto:HappyClient@golucky.co.za">HappyClient@golucky.co.za</a> &middot; 083 642 4645</p>
 </footer>
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const SUPABASE_URL = "https://wyrpcvlfrndcloyzxxty.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5cnBjdmxmcm5kY2xveXp4eHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI3MTAsImV4cCI6MjA4NzAxODcxMH0.ZjB6G7al2_BqFHfWfXVgb7QGF4yPmGdfvKvm45hwLr0";
+const STORAGE_BUCKET = "partner-documents";
 
 const HEADERS = {
     "Content-Type": "application/json",
     apikey: SUPABASE_KEY,
     Authorization: `Bearer ${SUPABASE_KEY}`,
-    Prefer: "return=minimal"
+    Prefer: "return=representation"
 };
 
-// ─── SIGNATURE PAD ────────────────────────────────────────────────────────────
-const canvas = document.getElementById('sigCanvas');
-const ctx = canvas.getContext('2d');
-const placeholder = document.getElementById('sigPlaceholder');
-let drawing = false;
-let hasSigned = false;
+// ─── FILE UPLOAD UI ───────────────────────────────────────────────────────────
+document.querySelectorAll('.file-upload-wrap input[type="file"]').forEach(input => {
+    const wrap = input.closest('.file-upload-wrap');
+    const nameEl = wrap.querySelector('.file-upload-name');
 
-function resizeCanvas() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = 150;
-    ctx.strokeStyle = '#231f20';
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-}
+    input.addEventListener('change', () => {
+        if (input.files.length > 0) {
+            nameEl.textContent = input.files[0].name;
+            nameEl.classList.add('visible');
+            wrap.style.borderColor = 'var(--green)';
+        } else {
+            nameEl.classList.remove('visible');
+            wrap.style.borderColor = '';
+        }
+    });
 
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+    // Drag & drop visual feedback
+    wrap.addEventListener('dragover', e => { e.preventDefault(); wrap.classList.add('dragover'); });
+    wrap.addEventListener('dragleave', () => wrap.classList.remove('dragover'));
+    wrap.addEventListener('drop', () => wrap.classList.remove('dragover'));
+});
 
-function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const t = e.touches ? e.touches[0] : e;
-    return { x: t.clientX - rect.left, y: t.clientY - rect.top };
-}
-
-canvas.addEventListener('mousedown', e => { drawing = true; ctx.beginPath(); ctx.moveTo(getPos(e).x, getPos(e).y); });
-canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSigned = true; placeholder.style.opacity = '0'; });
-canvas.addEventListener('mouseup', () => drawing = false);
-canvas.addEventListener('mouseleave', () => drawing = false);
-
-canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; ctx.beginPath(); ctx.moveTo(getPos(e).x, getPos(e).y); }, { passive: false });
-canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSigned = true; placeholder.style.opacity = '0'; }, { passive: false });
-canvas.addEventListener('touchend', () => drawing = false);
-
-function clearSig() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    hasSigned = false;
-    placeholder.style.opacity = '1';
+// ─── SELECT TIER (from display cards) ─────────────────────────────────────────
+function selectTier(tier) {
+    const radio = document.querySelector(`input[name="selected_tier"][value="${tier}"]`);
+    if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change'));
+    }
+    document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ─── TIER TOGGLE ──────────────────────────────────────────────────────────────
 const tierRadios = document.querySelectorAll('input[name="selected_tier"]');
 const debitSection = document.getElementById('debitSection');
+const creditSection = document.getElementById('creditSection');
 const agreeDebitWrap = document.getElementById('agreeDebitWrap');
+const regDocReq = document.getElementById('regDocReq');
 
-tierRadios.forEach(r => r.addEventListener('change', () => {
-    const isTier1 = document.querySelector('input[name="selected_tier"]:checked').value === 'tier_1';
-    debitSection.classList.toggle('visible', isTier1);
-    agreeDebitWrap.style.display = isTier1 ? 'flex' : 'none';
-}));
+function updateTierSections() {
+    const selected = document.querySelector('input[name="selected_tier"]:checked').value;
+    const isTier2 = selected === 'tier_2';
+    const isTier3 = selected === 'tier_3';
+
+    // Debit order: Tier 2 only
+    debitSection.classList.toggle('visible', isTier2);
+    agreeDebitWrap.style.display = isTier2 ? 'flex' : 'none';
+
+    // Credit application: Tier 3 only
+    creditSection.classList.toggle('visible', isTier3);
+
+    // Company reg required for Tier 2 & 3, optional for Tier 1
+    regDocReq.style.display = (isTier2 || isTier3) ? 'inline' : 'none';
+}
+
+tierRadios.forEach(r => r.addEventListener('change', updateTierSections));
+// Initial state
+updateTierSections();
+
+// ─── UPLOAD FILE TO SUPABASE STORAGE ──────────────────────────────────────────
+async function uploadFile(file, folder, filename) {
+    const ext = file.name.split('.').pop().toLowerCase();
+    const path = `${folder}/${filename}.${ext}`;
+
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`, {
+        method: 'POST',
+        headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': file.type,
+            'x-upsert': 'true'
+        },
+        body: file
+    });
+
+    if (!res.ok) {
+        const err = await res.text();
+        throw new Error(`Upload failed for ${filename}: ${err}`);
+    }
+
+    // Return the public path (will be accessed via storage URL)
+    return `${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`;
+}
 
 // ─── FORM SUBMIT ──────────────────────────────────────────────────────────────
 document.getElementById('partnerForm').addEventListener('submit', async function(e) {
@@ -1037,70 +1165,166 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
     const form = this;
     const btn = document.getElementById('submitBtn');
-
-    // Validate required fields
-    const required = form.querySelectorAll('[required]');
-    let valid = true;
-    required.forEach(f => {
-        if (!f.value.trim() && f.type !== 'checkbox') { f.style.borderColor = 'var(--red)'; valid = false; }
-        else if (f.type === 'checkbox' && !f.checked) { valid = false; }
-        else { f.style.borderColor = ''; }
-    });
-
-    if (!hasSigned) { alert('Please provide your signature.'); return; }
-    if (!valid) { alert('Please fill in all required fields.'); return; }
-
-    // Validate Tier 1 banking fields
     const tier = form.querySelector('input[name="selected_tier"]:checked').value;
-    if (tier === 'tier_1') {
-        const bankFields = ['bank_holder', 'bank_name', 'bank_account', 'bank_branch'];
-        for (const name of bankFields) {
-            const field = form.querySelector(`[name="${name}"]`);
-            if (!field.value.trim()) {
-                field.style.borderColor = 'var(--red)';
-                valid = false;
-            }
+    const isTier2 = tier === 'tier_2';
+    const isTier3 = tier === 'tier_3';
+
+    // ── Validate required fields ──
+    let firstInvalid = null;
+    const missing = [];
+
+    function flagField(el, label) {
+        if (el.closest && el.closest('.file-upload-wrap')) {
+            el.closest('.file-upload-wrap').style.borderColor = 'var(--red)';
+        } else {
+            el.style.borderColor = 'var(--red)';
         }
-        if (!valid) { alert('Please fill in all banking details for the Debit Order Mandate.'); return; }
-        if (!document.getElementById('agreeDebit').checked) {
-            alert('Please authorise the Debit Order Mandate for Tier 1.'); return;
+        missing.push(label);
+        if (!firstInvalid) firstInvalid = el.closest('.file-upload-wrap') || el;
+    }
+
+    function clearField(el) {
+        if (el.closest && el.closest('.file-upload-wrap')) {
+            el.closest('.file-upload-wrap').style.borderColor = '';
+        } else {
+            el.style.borderColor = '';
         }
     }
 
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
+    // Business name
+    if (!form.business_name.value.trim()) flagField(form.business_name, 'Business Name');
+    else clearField(form.business_name);
 
-    // Build payload
-    const data = {
-        business_name: form.business_name.value.trim(),
-        business_type: form.business_type.value,
-        reg_number: form.reg_number.value.trim(),
-        vat_number: form.vat_number.value.trim(),
-        delivery_address: form.delivery_address.value.trim(),
-        contact_name: form.contact_name.value.trim(),
-        contact_role: form.contact_role.value.trim(),
-        contact_mobile: form.contact_mobile.value.trim(),
-        contact_email: form.contact_email.value.trim(),
-        selected_tier: tier,
-        bank_holder: form.bank_holder?.value.trim() || null,
-        bank_name: form.bank_name?.value || null,
-        bank_account: form.bank_account?.value.trim() || null,
-        bank_branch: form.bank_branch?.value.trim() || null,
-        bank_type: form.bank_type?.value || null,
-        collection_day: form.collection_day?.value || null,
-        weekly_volume: form.weekly_volume.value,
-        delivery_day: form.delivery_day.value,
-        notes: form.notes.value.trim(),
-        signature_data: canvas.toDataURL('image/png'),
-        print_name: form.print_name.value.trim(),
-        designation: form.designation.value.trim(),
-        agree_terms: true,
-        agree_debit: document.getElementById('agreeDebit').checked,
-        status: 'pending',
-        submitted_at: new Date().toISOString()
-    };
+    // Delivery address
+    if (!form.delivery_address.value.trim()) flagField(form.delivery_address, 'Delivery Address');
+    else clearField(form.delivery_address);
+
+    // Contact fields
+    if (!form.contact_name.value.trim()) flagField(form.contact_name, 'Contact Person');
+    else clearField(form.contact_name);
+    if (!form.contact_mobile.value.trim()) flagField(form.contact_mobile, 'Mobile Number');
+    else clearField(form.contact_mobile);
+    if (!form.contact_email.value.trim()) flagField(form.contact_email, 'Email Address');
+    else clearField(form.contact_email);
+
+    // Tier 2: banking fields
+    if (isTier2) {
+        if (!form.bank_holder.value.trim()) flagField(form.bank_holder, 'Account Holder Name');
+        else clearField(form.bank_holder);
+        if (!form.bank_name.value) flagField(form.bank_name, 'Bank Name');
+        else clearField(form.bank_name);
+        if (!form.bank_account.value.trim()) flagField(form.bank_account, 'Account Number');
+        else clearField(form.bank_account);
+        if (!form.bank_branch.value.trim()) flagField(form.bank_branch, 'Branch Code');
+        else clearField(form.bank_branch);
+        if (!document.getElementById('agreeDebit').checked) {
+            missing.push('Debit Order Authorisation');
+        }
+    }
+
+    // Tier 3: credit application fields
+    if (isTier3) {
+        if (!form.director_name.value.trim()) flagField(form.director_name, 'Director Full Name');
+        else clearField(form.director_name);
+        if (!form.director_id.value.trim()) flagField(form.director_id, 'Director ID Number');
+        else clearField(form.director_id);
+        if (!form.director_address.value.trim()) flagField(form.director_address, 'Director Address');
+        else clearField(form.director_address);
+    }
+
+    // File uploads
+    const sigFile = form.signature_file.files[0];
+    if (!sigFile) flagField(form.signature_file, 'Signature Upload');
+    else clearField(form.signature_file);
+
+    const idFile = form.id_document.files[0];
+    if (!idFile) flagField(form.id_document, 'ID Document');
+    else clearField(form.id_document);
+
+    const regFile = form.registration_doc.files[0];
+    if ((isTier2 || isTier3) && !regFile) flagField(form.registration_doc, 'Company Registration');
+    else clearField(form.registration_doc);
+
+    // Terms checkbox
+    if (!document.getElementById('agreeTerms').checked) missing.push('Agreement to Terms');
+
+    // Print name
+    if (!form.print_name.value.trim()) flagField(form.print_name, 'Print Name');
+    else clearField(form.print_name);
+
+    if (missing.length > 0) {
+        alert('Please complete the following:\n\n• ' + missing.join('\n• '));
+        if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    // ── Submit ──
+    btn.disabled = true;
+    btn.textContent = 'Uploading documents...';
 
     try {
+        // Sanitise folder name
+        const folder = form.business_name.value.trim().replace(/[^a-zA-Z0-9_\- ]/g, '').replace(/\s+/g, '_');
+
+        // Upload files to Supabase Storage
+        btn.textContent = 'Uploading signature...';
+        const sigUrl = await uploadFile(sigFile, folder, 'signature');
+
+        btn.textContent = 'Uploading ID document...';
+        const idUrl = await uploadFile(idFile, folder, 'id_document');
+
+        let regUrl = null;
+        if (regFile) {
+            btn.textContent = 'Uploading registration document...';
+            regUrl = await uploadFile(regFile, folder, 'registration');
+        }
+
+        btn.textContent = 'Saving application...';
+
+        // Build payload
+        const data = {
+            business_name: form.business_name.value.trim(),
+            business_type: form.business_type.value,
+            reg_number: form.reg_number.value.trim(),
+            vat_number: form.vat_number.value.trim(),
+            delivery_address: form.delivery_address.value.trim(),
+            contact_name: form.contact_name.value.trim(),
+            contact_role: form.contact_role.value.trim(),
+            contact_mobile: form.contact_mobile.value.trim(),
+            contact_email: form.contact_email.value.trim(),
+            selected_tier: tier,
+            bank_holder: form.bank_holder?.value.trim() || null,
+            bank_name: form.bank_name?.value || null,
+            bank_account: form.bank_account?.value.trim() || null,
+            bank_branch: form.bank_branch?.value.trim() || null,
+            bank_type: form.bank_type?.value || null,
+            collection_day: form.collection_day?.value || null,
+            weekly_volume: form.weekly_volume.value,
+            delivery_day: form.delivery_day.value,
+            notes: form.notes.value.trim(),
+            print_name: form.print_name.value.trim(),
+            designation: form.designation.value.trim(),
+            agree_terms: true,
+            agree_debit: document.getElementById('agreeDebit').checked,
+            // File URLs
+            signature_image_url: sigUrl,
+            signature_method: 'upload',
+            id_document_url: idUrl,
+            registration_doc_url: regUrl,
+            // Tier 3 credit fields
+            director_name: isTier3 ? form.director_name.value.trim() : null,
+            director_id: isTier3 ? form.director_id.value.trim() : null,
+            director_address: isTier3 ? form.director_address.value.trim() : null,
+            trade_ref_1_name: isTier3 ? form.trade_ref_1_name.value.trim() : null,
+            trade_ref_1_contact: isTier3 ? form.trade_ref_1_contact.value.trim() : null,
+            trade_ref_2_name: isTier3 ? form.trade_ref_2_name.value.trim() : null,
+            trade_ref_2_contact: isTier3 ? form.trade_ref_2_contact.value.trim() : null,
+            credit_limit_requested: isTier3 && form.credit_limit_requested.value ? Number(form.credit_limit_requested.value) : null,
+            // Meta
+            status: 'pending_review',
+            submitted_at: new Date().toISOString()
+        };
+
         const res = await fetch(`${SUPABASE_URL}/rest/v1/partner_applications`, {
             method: 'POST',
             headers: HEADERS,
@@ -1112,6 +1336,29 @@ document.getElementById('partnerForm').addEventListener('submit', async function
             throw new Error(err);
         }
 
+        // Send notification email to applications@golucky.co.za
+        btn.textContent = 'Sending notification...';
+        try {
+            await fetch(`${SUPABASE_URL}/functions/v1/notify-partner-application`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    apikey: SUPABASE_KEY,
+                    Authorization: `Bearer ${SUPABASE_KEY}`
+                },
+                body: JSON.stringify({
+                    business_name: data.business_name,
+                    contact_name: data.contact_name,
+                    contact_mobile: data.contact_mobile,
+                    contact_email: data.contact_email,
+                    selected_tier: data.selected_tier
+                })
+            });
+        } catch (emailErr) {
+            // Non-blocking — application saved even if email fails
+            console.warn('Email notification failed:', emailErr);
+        }
+
         // Show success
         form.style.display = 'none';
         document.getElementById('successBanner').classList.add('visible');
@@ -1119,9 +1366,9 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
     } catch (err) {
         console.error('Submit error:', err);
-        alert('Something went wrong submitting your application. Please try again or contact us directly at 083 642 4645.');
+        alert('Something went wrong:\n\n' + err.message + '\n\nPlease try again or contact us directly at 083 642 4645.');
         btn.disabled = false;
-        btn.textContent = 'Submit Partner Application';
+        btn.textContent = 'Submit Client Application';
     }
 });
 </script>
