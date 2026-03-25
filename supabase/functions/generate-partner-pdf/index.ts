@@ -132,7 +132,7 @@ Deno.serve(async (req) => {
     // PAGE 1 — Header, Partnership Intro, Tier Table
     // ════════════════════════════════════════════════════════════
     let page = pdf.addPage([W, H]);
-    let y = H - M;
+    let y = H - 20;
 
     // Header bar
     page.drawRectangle({ x: 0, y: H - 4, width: W / 4, height: 4, color: BLUE });
