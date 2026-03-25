@@ -88,6 +88,17 @@ Deno.serve(async (req) => {
     if (!apps.length) throw new Error("Application not found");
     const app = apps[0];
 
+    // ── Fetch logo image ──
+    let logoImageBytes: Uint8Array | null = null;
+    try {
+      const logoRes = await fetch("https://golucky.co.za/golucky-script-transparent.png");
+      if (logoRes.ok) {
+        logoImageBytes = new Uint8Array(await logoRes.arrayBuffer());
+      }
+    } catch (e) {
+      console.warn("Could not fetch logo:", e);
+    }
+
     // ── Fetch signature image ──
     let sigImageBytes: Uint8Array | null = null;
     let sigImageType = "png";
@@ -129,16 +140,36 @@ Deno.serve(async (req) => {
     page.drawRectangle({ x: W / 2, y: H - 4, width: W / 4, height: 4, color: rgb(0.93, 0.91, 0.9) });
     page.drawRectangle({ x: 3 * W / 4, y: H - 4, width: W / 4, height: 4, color: BLACK });
 
-    // Title
-    y -= 20;
-    page.drawText("GO LUCKY CLIENT SUPPLY AGREEMENT", { x: M, y, size: 20, font: helveticaBold, color: BLACK });
-    y -= 20;
+    // Logo (centred)
+    if (logoImageBytes) {
+      try {
+        const logoImage = await pdf.embedPng(logoImageBytes);
+        const logoScale = Math.min(160 / logoImage.width, 70 / logoImage.height);
+        const logoDims = logoImage.scale(logoScale);
+        const logoX = (W - logoDims.width) / 2;
+        page.drawImage(logoImage, { x: logoX, y: y - logoDims.height - 5, width: logoDims.width, height: logoDims.height });
+        y -= logoDims.height + 15;
+      } catch (e) {
+        y -= 10;
+      }
+    }
+
+    // Title (centred, 60% smaller)
+    const titleText = "GO LUCKY CLIENT SUPPLY AGREEMENT";
+    const titleSize = 8;
+    const titleWidth = helveticaBold.widthOfTextAtSize(titleText, titleSize);
+    page.drawText(titleText, { x: (W - titleWidth) / 2, y, size: titleSize, font: helveticaBold, color: GRAY });
+    y -= 12;
     drawLine(page, M, y, CW);
-    y -= 16;
-    page.drawText("Go Lucky Free Range (CC)  Reg No: 2007/157032/23  VAT: 4610290712", { x: M, y, size: 8, font: helvetica, color: GRAY });
-    y -= 8;
+    y -= 12;
+    const regText = "Go Lucky Free Range (CC)  Reg No: 2007/157032/23  VAT: 4610290712";
+    const regWidth = helvetica.widthOfTextAtSize(regText, 7);
+    page.drawText(regText, { x: (W - regWidth) / 2, y, size: 7, font: helvetica, color: GRAY });
+    y -= 10;
     const dateStr = new Date().toLocaleDateString("en-ZA", { year: "numeric", month: "long", day: "numeric" });
-    page.drawText(`Generated: ${dateStr}`, { x: M, y, size: 8, font: helvetica, color: GRAY });
+    const dateText = `Generated: ${dateStr}`;
+    const dateWidth = helvetica.widthOfTextAtSize(dateText, 7);
+    page.drawText(dateText, { x: (W - dateWidth) / 2, y, size: 7, font: helvetica, color: GRAY });
 
     // Client details box
     y -= 25;
