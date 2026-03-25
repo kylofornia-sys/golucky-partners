@@ -1339,7 +1339,7 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         // Send notification email to applications@golucky.co.za
         btn.textContent = 'Sending notification...';
         try {
-            await fetch(`${SUPABASE_URL}/functions/v1/notify-partner-application`, {
+            await fetch(`${SUPABASE_URL}/functions/v1/notify-partner-application-`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
