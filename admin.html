@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Lucky Partners — Admin</title>
+    <link rel="icon" type="image/png" href="https://golucky.co.za/happy-egg-transparent.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #f89921;
+            --blue: #4278bd;
+            --blue-dark: #36649e;
+            --cream: #ede9e6;
+            --cream-dark: #e0dad6;
+            --black: #231f20;
+            --white: #ffffff;
+            --gray: #6b6563;
+            --green: #2d8a4e;
+            --red: #c0392b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--black); }
+
+        /* Login */
+        .login-wrap {
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh;
+        }
+        .login-box {
+            background: var(--white); padding: 2.5rem; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; max-width: 340px; width: 100%;
+        }
+        .login-box img { height: 80px; margin-bottom: 1rem; }
+        .login-box h2 { font-size: 1rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .login-box input {
+            width: 100%; padding: 0.8rem 1rem; border: 1.5px solid var(--cream-dark);
+            border-radius: 10px; font-size: 1.2rem; text-align: center; letter-spacing: 0.3em;
+            outline: none; font-family: 'Inter', sans-serif;
+        }
+        .login-box input:focus { border-color: var(--blue); }
+        .login-box button {
+            width: 100%; padding: 0.8rem; margin-top: 1rem; background: var(--blue);
+            color: var(--white); border: none; border-radius: 10px; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer;
+        }
+        .login-box button:hover { background: var(--blue-dark); }
+        .login-error { color: var(--red); font-size: 0.8rem; margin-top: 0.5rem; display: none; }
+
+        /* Dashboard */
+        .dashboard { display: none; max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        .dashboard.visible { display: block; }
+        .login-wrap.hidden { display: none; }
+
+        .dash-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .dash-header img { height: 50px; }
+        .dash-header h1 { font-size: 1.1rem; color: var(--gray); font-weight: 500; }
+        .dash-stats { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card {
+            background: var(--white); padding: 1rem 1.5rem; border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); flex: 1; text-align: center;
+        }
+        .stat-card .num { font-size: 1.8rem; font-weight: 700; color: var(--blue); }
+        .stat-card .label { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+
+        /* Table */
+        .app-table-wrap {
+            background: var(--white); border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden;
+        }
+        .app-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .app-table th {
+            background: var(--blue); color: var(--white); padding: 0.7rem 0.8rem;
+            text-align: left; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em;
+        }
+        .app-table td { padding: 0.65rem 0.8rem; border-bottom: 1px solid var(--cream); vertical-align: top; }
+        .app-table tr:hover td { background: rgba(66,120,189,0.03); }
+
+        .tier-badge {
+            display: inline-block; padding: 0.2rem 0.5rem; border-radius: 6px;
+            font-size: 0.68rem; font-weight: 600;
+        }
+        .tier-badge.tier_1 { background: rgba(248,153,33,0.12); color: var(--orange); }
+        .tier-badge.tier_2 { background: rgba(66,120,189,0.12); color: var(--blue); }
+        .tier-badge.tier_3 { background: rgba(35,31,32,0.08); color: var(--black); }
+
+        .status-badge {
+            display: inline-block; padding: 0.2rem 0.5rem; border-radius: 6px;
+            font-size: 0.68rem; font-weight: 600;
+        }
+        .status-badge.pending_review { background: rgba(248,153,33,0.15); color: var(--orange); }
+        .status-badge.agreement_generated { background: rgba(66,120,189,0.15); color: var(--blue); }
+        .status-badge.approved { background: rgba(45,138,78,0.15); color: var(--green); }
+        .status-badge.rejected { background: rgba(192,57,43,0.15); color: var(--red); }
+
+        .btn {
+            display: inline-block; padding: 0.3rem 0.6rem; border-radius: 6px;
+            font-size: 0.68rem; font-weight: 600; cursor: pointer; border: none;
+            font-family: 'Inter', sans-serif; margin: 0.15rem;
+        }
+        .btn-blue { background: var(--blue); color: var(--white); }
+        .btn-blue:hover { background: var(--blue-dark); }
+        .btn-green { background: var(--green); color: var(--white); }
+        .btn-red { background: var(--red); color: var(--white); }
+        .btn-gray { background: var(--cream-dark); color: var(--gray); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .doc-link { color: var(--blue); text-decoration: none; font-size: 0.72rem; display: block; }
+        .doc-link:hover { text-decoration: underline; }
+
+        /* Detail panel */
+        .detail-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1000;
+        }
+        .detail-overlay.visible { display: flex; align-items: center; justify-content: center; }
+        .detail-panel {
+            background: var(--white); border-radius: 16px; padding: 2rem; max-width: 600px;
+            width: 95%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+        }
+        .detail-panel h2 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--blue); }
+        .detail-row { display: flex; padding: 0.4rem 0; border-bottom: 1px solid var(--cream); font-size: 0.82rem; }
+        .detail-row .dl { color: var(--gray); width: 140px; flex-shrink: 0; font-weight: 500; }
+        .detail-row .dv { flex: 1; }
+        .detail-actions { margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .detail-close {
+            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+            font-size: 1.2rem; cursor: pointer; color: var(--gray);
+        }
+
+        .loading { text-align: center; padding: 3rem; color: var(--gray); }
+
+        @media (max-width: 768px) {
+            .dash-stats { flex-direction: column; }
+            .app-table { font-size: 0.72rem; }
+            .app-table th, .app-table td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+    <div class="login-box">
+        <img src="https://golucky.co.za/golucky-script-transparent.png" alt="Go Lucky">
+        <h2>Partners Admin</h2>
+        <input type="password" id="pinInput" placeholder="Enter PIN" maxlength="6" autofocus>
+        <button onclick="checkPin()">Access Dashboard</button>
+        <div class="login-error" id="loginError">Incorrect PIN</div>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+    <div class="dash-header">
+        <img src="https://golucky.co.za/golucky-script-transparent.png" alt="Go Lucky">
+        <h1>Partner Applications</h1>
+    </div>
+
+    <div class="dash-stats">
+        <div class="stat-card"><div class="num" id="statTotal">-</div><div class="label">Total Applications</div></div>
+        <div class="stat-card"><div class="num" id="statPending">-</div><div class="label">Pending Review</div></div>
+        <div class="stat-card"><div class="num" id="statGenerated">-</div><div class="label">Agreements Generated</div></div>
+        <div class="stat-card"><div class="num" id="statApproved">-</div><div class="label">Approved</div></div>
+    </div>
+
+    <div class="app-table-wrap">
+        <table class="app-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Business</th>
+                    <th>Contact</th>
+                    <th>Tier</th>
+                    <th>Status</th>
+                    <th>Documents</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="appTableBody">
+                <tr><td colspan="7" class="loading">Loading applications...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
+    <div class="detail-panel" id="detailPanel"></div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://wyrpcvlfrndcloyzxxty.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5cnBjdmxmcm5kY2xveXp4eHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI3MTAsImV4cCI6MjA4NzAxODcxMH0.ZjB6G7al2_BqFHfWfXVgb7QGF4yPmGdfvKvm45hwLr0";
+const ADMIN_PIN = "2007"; // Change this to your preferred PIN
+
+const TIER_LABELS = {
+    tier_1: "COD",
+    tier_2: "Flow (7-14d)",
+    tier_3: "Credit (30d)"
+};
+
+let allApps = [];
+
+// ─── PIN LOGIN ────────────────────────────────────────────────────────────────
+document.getElementById('pinInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPin(); });
+
+function checkPin() {
+    const pin = document.getElementById('pinInput').value;
+    if (pin === ADMIN_PIN) {
+        document.getElementById('loginWrap').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('visible');
+        loadApplications();
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('pinInput').value = '';
+        document.getElementById('pinInput').focus();
+    }
+}
+
+// ─── LOAD APPLICATIONS ───────────────────────────────────────────────────────
+async function loadApplications() {
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/partner_applications?select=*&order=submitted_at.desc`, {
+            headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+        });
+        allApps = await res.json();
+        renderTable();
+        renderStats();
+    } catch (err) {
+        document.getElementById('appTableBody').innerHTML = `<tr><td colspan="7" class="loading">Error loading: ${err.message}</td></tr>`;
+    }
+}
+
+function renderStats() {
+    document.getElementById('statTotal').textContent = allApps.length;
+    document.getElementById('statPending').textContent = allApps.filter(a => a.status === 'pending_review').length;
+    document.getElementById('statGenerated').textContent = allApps.filter(a => a.status === 'agreement_generated').length;
+    document.getElementById('statApproved').textContent = allApps.filter(a => a.status === 'approved').length;
+}
+
+function renderTable() {
+    const tbody = document.getElementById('appTableBody');
+    if (!allApps.length) {
+        tbody.innerHTML = '<tr><td colspan="7" class="loading">No applications yet</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = allApps.map(app => {
+        const date = app.submitted_at ? new Date(app.submitted_at).toLocaleDateString('en-ZA', { day: '2-digit', month: 'short', year: 'numeric' }) : '-';
+        const tier = TIER_LABELS[app.selected_tier] || app.selected_tier;
+
+        let docs = '';
+        if (app.id_document_url) docs += `<a class="doc-link" href="${app.id_document_url}" target="_blank">ID Doc</a>`;
+        if (app.registration_doc_url) docs += `<a class="doc-link" href="${app.registration_doc_url}" target="_blank">Company Reg</a>`;
+        if (app.signature_image_url) docs += `<a class="doc-link" href="${app.signature_image_url}" target="_blank">Signature</a>`;
+        if (app.signed_pdf_url) docs += `<a class="doc-link" href="${app.signed_pdf_url}" target="_blank" style="color:var(--green);font-weight:600;">Agreement PDF</a>`;
+
+        let actions = `<button class="btn btn-gray" onclick="showDetail('${app.id}')">View</button>`;
+        if (!app.signed_pdf_url) {
+            actions += `<button class="btn btn-blue" id="gen-${app.id}" onclick="generatePDF('${app.id}')">Generate PDF</button>`;
+        }
+        if (app.status !== 'approved') {
+            actions += `<button class="btn btn-green" onclick="updateStatus('${app.id}','approved')">Approve</button>`;
+        }
+        if (app.status !== 'rejected') {
+            actions += `<button class="btn btn-red" onclick="updateStatus('${app.id}','rejected')">Reject</button>`;
+        }
+
+        return `<tr>
+            <td>${date}</td>
+            <td><strong>${app.business_name || '-'}</strong><br><span style="color:var(--gray);font-size:0.7rem;">${app.business_type || ''}</span></td>
+            <td>${app.contact_name || '-'}<br><a href="tel:${app.contact_mobile}" style="color:var(--blue);font-size:0.72rem;">${app.contact_mobile || ''}</a></td>
+            <td><span class="tier-badge ${app.selected_tier}">${tier}</span></td>
+            <td><span class="status-badge ${app.status}">${(app.status || '').replace(/_/g, ' ')}</span></td>
+            <td>${docs || '<span style="color:var(--gray);">-</span>'}</td>
+            <td>${actions}</td>
+        </tr>`;
+    }).join('');
+}
+
+// ─── GENERATE PDF ─────────────────────────────────────────────────────────────
+async function generatePDF(id) {
+    const btn = document.getElementById(`gen-${id}`);
+    if (btn) { btn.disabled = true; btn.textContent = 'Generating...'; }
+
+    try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/generate-partner-pdf`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                apikey: SUPABASE_KEY,
+                Authorization: `Bearer ${SUPABASE_KEY}`
+            },
+            body: JSON.stringify({ application_id: id })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            alert('PDF generated!\n\n' + data.pdf_url);
+            loadApplications();
+        } else {
+            alert('PDF generation failed: ' + (data.error || 'Unknown error'));
+            if (btn) { btn.disabled = false; btn.textContent = 'Generate PDF'; }
+        }
+    } catch (err) {
+        alert('Error: ' + err.message);
+        if (btn) { btn.disabled = false; btn.textContent = 'Generate PDF'; }
+    }
+}
+
+// ─── UPDATE STATUS ────────────────────────────────────────────────────────────
+async function updateStatus(id, status) {
+    try {
+        await fetch(`${SUPABASE_URL}/rest/v1/partner_applications?id=eq.${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                apikey: SUPABASE_KEY,
+                Authorization: `Bearer ${SUPABASE_KEY}`,
+                Prefer: 'return=minimal'
+            },
+            body: JSON.stringify({ status, reviewed_at: new Date().toISOString() })
+        });
+        loadApplications();
+    } catch (err) {
+        alert('Error: ' + err.message);
+    }
+}
+
+// ─── DETAIL VIEW ──────────────────────────────────────────────────────────────
+function showDetail(id) {
+    const app = allApps.find(a => a.id === id);
+    if (!app) return;
+
+    const fields = [
+        ['Business Name', app.business_name],
+        ['Business Type', app.business_type],
+        ['Reg Number', app.reg_number],
+        ['VAT Number', app.vat_number],
+        ['Delivery Address', app.delivery_address],
+        ['Contact Person', app.contact_name],
+        ['Role', app.contact_role],
+        ['Mobile', app.contact_mobile],
+        ['Email', app.contact_email],
+        ['Selected Tier', TIER_LABELS[app.selected_tier] || app.selected_tier],
+        ['Weekly Volume', app.weekly_volume],
+        ['Delivery Schedule', app.delivery_day],
+        ['Notes', app.notes],
+        ['Print Name', app.print_name],
+        ['Designation', app.designation],
+    ];
+
+    // Tier 2 banking
+    if (app.selected_tier === 'tier_2') {
+        fields.push(
+            ['— DEBIT ORDER —', ''],
+            ['Account Holder', app.bank_holder],
+            ['Bank', app.bank_name],
+            ['Account Number', app.bank_account],
+            ['Branch Code', app.bank_branch],
+            ['Account Type', app.bank_type],
+            ['Collection Day', app.collection_day],
+        );
+    }
+
+    // Tier 3 credit
+    if (app.selected_tier === 'tier_3') {
+        fields.push(
+            ['— CREDIT APPLICATION —', ''],
+            ['Director Name', app.director_name],
+            ['Director ID', app.director_id],
+            ['Director Address', app.director_address],
+            ['Trade Ref 1', app.trade_ref_1_name ? `${app.trade_ref_1_name} — ${app.trade_ref_1_contact}` : '-'],
+            ['Trade Ref 2', app.trade_ref_2_name ? `${app.trade_ref_2_name} — ${app.trade_ref_2_contact}` : '-'],
+            ['Credit Limit', app.credit_limit_requested ? `R ${Number(app.credit_limit_requested).toLocaleString()}` : '-'],
+        );
+    }
+
+    let html = `<h2>${app.business_name}</h2>`;
+    html += fields.map(([label, value]) => {
+        if (label.startsWith('—')) return `<div style="margin-top:1rem;font-weight:700;color:var(--blue);font-size:0.8rem;">${label}</div>`;
+        return `<div class="detail-row"><div class="dl">${label}</div><div class="dv">${value || '-'}</div></div>`;
+    }).join('');
+
+    // Documents
+    html += '<div style="margin-top:1rem;font-weight:700;color:var(--blue);font-size:0.8rem;">— DOCUMENTS —</div>';
+    if (app.id_document_url) html += `<div class="detail-row"><div class="dl">ID Document</div><div class="dv"><a href="${app.id_document_url}" target="_blank" style="color:var(--blue);">View / Download</a></div></div>`;
+    if (app.registration_doc_url) html += `<div class="detail-row"><div class="dl">Company Reg</div><div class="dv"><a href="${app.registration_doc_url}" target="_blank" style="color:var(--blue);">View / Download</a></div></div>`;
+    if (app.signature_image_url) html += `<div class="detail-row"><div class="dl">Signature</div><div class="dv"><a href="${app.signature_image_url}" target="_blank" style="color:var(--blue);">View / Download</a></div></div>`;
+    if (app.signed_pdf_url) html += `<div class="detail-row"><div class="dl">Agreement PDF</div><div class="dv"><a href="${app.signed_pdf_url}" target="_blank" style="color:var(--green);font-weight:600;">View / Download</a></div></div>`;
+
+    // Actions
+    html += '<div class="detail-actions">';
+    if (!app.signed_pdf_url) html += `<button class="btn btn-blue" onclick="generatePDF('${app.id}');closeDetail();">Generate PDF</button>`;
+    if (app.signed_pdf_url) html += `<a class="btn btn-green" href="${app.signed_pdf_url}" target="_blank" style="text-decoration:none;">Download PDF</a>`;
+    html += `<button class="btn btn-gray" onclick="closeDetail()">Close</button>`;
+    html += '</div>';
+
+    document.getElementById('detailPanel').innerHTML = html;
+    document.getElementById('detailOverlay').classList.add('visible');
+}
+
+function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('visible');
+}
+</script>
+
+</body>
+</html>
