@@ -24,7 +24,7 @@ const WHITE = rgb(1, 1, 1);
 const TIER_LABELS: Record<string, string> = {
   tier_1: "Tier 1 — Cash on Delivery",
   tier_2: "Tier 2 — Go Lucky Flow (Net 7–14 Days)",
-  tier_3: "Tier 3 — Credit Account (Net 30–60 Days)",
+  tier_3: "Tier 3 — Credit Account (Net 30 Days)",
 };
 
 const TIER_PRICING: Record<string, string> = {
@@ -195,7 +195,7 @@ Deno.serve(async (req) => {
     const tiers = [
       { tier: "TIER 1", name: "CASH ON DELIVERY", method: "Cash / EFT", terms: "Immediate (COD)", price: "Base Price (Best)" },
       { tier: "TIER 2", name: "GO LUCKY FLOW", method: "Debit Order / EFT", terms: "Net 7–14 Days", price: "Base + 5%" },
-      { tier: "TIER 3", name: "CREDIT ACCOUNT", method: "EFT", terms: "Net 30–60 Days", price: "Base + 10%" },
+      { tier: "TIER 3", name: "CREDIT ACCOUNT", method: "EFT", terms: "Net 30 Days", price: "Base + 10%" },
     ];
 
     for (let i = 0; i < tiers.length; i++) {
@@ -311,7 +311,7 @@ Deno.serve(async (req) => {
       }
 
       y -= 10;
-      const creditNote = "This credit application is subject to approval. Go Lucky Free Range reserves the right to decline or limit credit at its sole discretion. Interest of 2.5% per month will be charged on any late payments beyond the agreed 30–60 day terms.";
+      const creditNote = "This credit application is subject to approval. Go Lucky Free Range reserves the right to decline or limit credit at its sole discretion. Interest of 2.5% per month will be charged on any late payments beyond the agreed 30 day terms.";
       y = drawWrapped(page, creditNote, M, y, helveticaOblique, 8, GRAY, CW, 11);
       y -= 20;
     }

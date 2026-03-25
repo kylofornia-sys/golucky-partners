@@ -20,7 +20,7 @@ const SUPABASE_DASHBOARD = "https://supabase.com/dashboard/project/wyrpcvlfrndcl
 const TIER_LABELS: Record<string, string> = {
   tier_1: "Tier 1 — Cash on Delivery (Base Price)",
   tier_2: "Tier 2 — Go Lucky Flow, Net 7–14 Days (Base + 5%)",
-  tier_3: "Tier 3 — Credit Account, Net 30–60 Days (Base + 10%)",
+  tier_3: "Tier 3 — Credit Account, Net 30 Days (Base + 10%)",
 };
 
 const corsHeaders = {
