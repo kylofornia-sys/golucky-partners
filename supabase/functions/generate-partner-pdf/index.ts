@@ -144,11 +144,11 @@ Deno.serve(async (req) => {
     if (logoImageBytes) {
       try {
         const logoImage = await pdf.embedPng(logoImageBytes);
-        const logoScale = Math.min(160 / logoImage.width, 70 / logoImage.height);
+        const logoScale = Math.min(320 / logoImage.width, 140 / logoImage.height);
         const logoDims = logoImage.scale(logoScale);
         const logoX = (W - logoDims.width) / 2;
-        page.drawImage(logoImage, { x: logoX, y: y - logoDims.height - 5, width: logoDims.width, height: logoDims.height });
-        y -= logoDims.height + 15;
+        page.drawImage(logoImage, { x: logoX, y: y - logoDims.height, width: logoDims.width, height: logoDims.height });
+        y -= logoDims.height + 2;
       } catch (e) {
         y -= 10;
       }
