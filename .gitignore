@@ -1,0 +1,6 @@
+# Local-only artifacts — not part of the deployable site
+.netlify/
+Iterations/
+snapshot.sh
+.DS_Store
+node_modules/
