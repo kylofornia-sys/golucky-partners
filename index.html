@@ -641,6 +641,45 @@
             margin: 0 auto;
         }
 
+        /* Error fallback — shown if the submit ever fails, so the lead is
+           never silently lost (see 2026-07-15 CORS incident). */
+        .error-banner {
+            display: none;
+            background: linear-gradient(135deg, var(--orange) 0%, #c9760f 100%);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .error-banner.visible { display: block; }
+        .error-banner h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .error-banner p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+        .error-banner .wa-btn {
+            display: inline-block;
+            margin: 1.4rem 0 0.4rem;
+            padding: 0.85rem 1.9rem;
+            background: var(--white);
+            color: #075e54;
+            font-weight: 700;
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .error-banner .err-detail {
+            font-size: 0.72rem;
+            opacity: 0.65;
+            margin-top: 1.1rem;
+        }
+
         /* ---- FOOTER ---- */
         .footer {
             background: var(--black);
@@ -753,6 +792,15 @@
     <div class="success-banner" id="successBanner">
         <h3>Application Received</h3>
         <p>Thank you &mdash; your application has been received. A member of the Go Lucky team will be in touch within a few hours.</p>
+    </div>
+
+    <!-- Error fallback (hidden by default) — gives a one-tap WhatsApp path so a
+         failed submission still reaches us instead of losing the applicant. -->
+    <div class="error-banner" id="errorBanner">
+        <h3>We couldn't submit your application</h3>
+        <p>Sorry &mdash; something went wrong on our side. Send us a quick WhatsApp with your details and we'll pick it up straight away, or try again in a moment.</p>
+        <a class="wa-btn" id="waFallback" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
+        <p class="err-detail" id="errDetail"></p>
     </div>
 
     <form class="form-section" id="partnerForm" novalidate>
@@ -1067,6 +1115,9 @@
 const SUPABASE_URL = "https://wyrpcvlfrndcloyzxxty.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5cnBjdmxmcm5kY2xveXp4eHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI3MTAsImV4cCI6MjA4NzAxODcxMH0.ZjB6G7al2_BqFHfWfXVgb7QGF4yPmGdfvKvm45hwLr0";
 const STORAGE_BUCKET = "partner-documents";
+// Fallback WhatsApp number for the error path (international format, no +).
+// Currently Kyle's personal WhatsApp — swap for the dedicated line once it exists.
+const SUPPORT_WA = "27836424645";
 
 const HEADERS = {
     "Content-Type": "application/json",
@@ -1165,6 +1216,7 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
     const form = this;
     const btn = document.getElementById('submitBtn');
+    document.getElementById('errorBanner').classList.remove('visible');
     const tier = form.querySelector('input[name="selected_tier"]:checked').value;
     const isTier2 = tier === 'tier_2';
     const isTier3 = tier === 'tier_3';
@@ -1370,7 +1422,24 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
     } catch (err) {
         console.error('Submit error:', err);
-        alert('Something went wrong:\n\n' + err.message + '\n\nPlease try again or contact us directly at 063 066 4549.');
+
+        // Build a pre-filled WhatsApp message from what they already entered, so
+        // the applicant reaches us in one tap even if the submit failed.
+        const biz = form.business_name.value.trim();
+        const who = form.contact_name.value.trim();
+        const waMsg =
+            `Hi Go Lucky, I tried to apply online` +
+            (biz ? ` for ${biz}` : '') +
+            (who ? ` (${who})` : '') +
+            ` but got an error submitting the form. Can you help me apply?`;
+        const wa = document.getElementById('waFallback');
+        wa.href = `https://wa.me/${SUPPORT_WA}?text=${encodeURIComponent(waMsg)}`;
+        document.getElementById('errDetail').textContent = 'Reference: ' + (err.message || 'submission failed');
+
+        const errBanner = document.getElementById('errorBanner');
+        errBanner.classList.add('visible');
+        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
         btn.disabled = false;
         btn.textContent = 'Submit Client Application';
     }
