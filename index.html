@@ -1333,6 +1333,11 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
         btn.textContent = 'Saving application...';
 
+        // Structured ambassador referral (chef_id) from the share link's ?rid=. Validate as a UUID
+        // so a bad value can't fail the referred_by_chef_id foreign key and break the submission.
+        const _rid = new URLSearchParams(window.location.search).get('rid');
+        const _ridValid = _rid && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(_rid);
+
         // Build payload
         const data = {
             business_name: form.business_name.value.trim(),
@@ -1374,7 +1379,9 @@ document.getElementById('partnerForm').addEventListener('submit', async function
             credit_limit_requested: isTier3 && form.credit_limit_requested.value ? Number(form.credit_limit_requested.value) : null,
             // Meta
             status: 'pending_review',
-            submitted_at: new Date().toISOString()
+            submitted_at: new Date().toISOString(),
+            // Structured ambassador referral so approval auto-links the rep.
+            ...(_ridValid ? { referred_by_chef_id: _rid } : {})
         };
 
         // Insert via the service-role write proxy. The anon insert policy on

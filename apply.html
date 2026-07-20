@@ -911,7 +911,12 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         // table has no payment_terms column, so the choice rides in notes where
         // it shows in the admin review modal. `[Referred by: x]` lets the modal
         // auto-link a sales ambassador.
-        const ref = new URLSearchParams(window.location.search).get('ref');
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('ref');
+        // rid = the ambassador's chef_id (structured referral). Only trust a real UUID — a bad
+        // value would fail the referred_by_chef_id foreign key and break the whole submission.
+        const rid = params.get('rid');
+        const ridValid = rid && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(rid);
         const userNotes = form.notes.value.trim();
         const noteParts = [];
         if (payTerm) noteParts.push(`[Payment terms: ${payTerm}]`);
@@ -943,7 +948,9 @@ document.getElementById('partnerForm').addEventListener('submit', async function
             id_document_url: idUrl,
             registration_doc_url: regUrl,
             status: 'pending_review',
-            submitted_at: new Date().toISOString()
+            submitted_at: new Date().toISOString(),
+            // Structured ambassador referral so approval auto-links the rep (not just the notes tag).
+            ...(ridValid ? { referred_by_chef_id: rid } : {})
         };
 
         // Insert via the service-role write proxy (anon insert is blocked by RLS
