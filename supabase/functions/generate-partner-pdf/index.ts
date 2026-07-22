@@ -398,7 +398,7 @@ Deno.serve(async (req) => {
     y -= 12;
     page.drawText("Go Lucky Free Range (CC) · Reg No: 2007/157032/23 · VAT: 4610290712", { x: M, y, size: 7, font: helvetica, color: GRAY });
     y -= 10;
-    page.drawText("partners.golucky.co.za · HappyClient@golucky.co.za · 083 642 4645", { x: M, y, size: 7, font: helvetica, color: GRAY });
+    page.drawText("partners.golucky.co.za · orders@golucky.co.za · 083 642 4645", { x: M, y, size: 7, font: helvetica, color: GRAY });
 
     // ── Save PDF ──
     const pdfBytes = await pdf.save();
