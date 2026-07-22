@@ -10,6 +10,16 @@
 [build]
   publish = "."
 
+# apply.html was the standard no-pricing account form (added 2026-06-03). Since
+# 2026-07-22 index.html is itself pricing-free, so the two converged and apply.html
+# was retired to avoid a repeat of the three-divergent-copies incident. The file is
+# kept in the repo for history; this 301 sends all traffic to the live form.
+[[redirects]]
+  from = "/apply.html"
+  to = "/"
+  status = 301
+  force = true
+
 # Block source/dev artifacts from being web-served.
 [[redirects]]
   from = "/*.sql"

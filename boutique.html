@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Become a Client | Go Lucky Free Range Eggs</title>
-    <meta name="description" content="Apply to open a Go Lucky client account. Choose your payment terms, upload your documents, and we agree pricing with you directly.">
+    <title>Boutique &amp; Small Format Account | Go Lucky Free Range Eggs</title>
+    <meta name="description" content="Go Lucky small-format supply for boutique hotels, guesthouses and small kitchens. Order by the tray from a 3-tray minimum. R120 per 30-egg tray, every quantity.">
     <link rel="icon" type="image/png" href="https://golucky.co.za/happy-egg-transparent.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +12,13 @@
     <style>
         /* ============================================
            GO LUCKY PARTNERS — partners.golucky.co.za
+           Boutique / Small Format Account Application
+           Seeded from apply.html. Same submit path, same table,
+           tagged selected_tier: 'boutique'. The one structural
+           difference is that this page PUBLISHES its price:
+           a flat R120 per tray at every quantity. That is deliberate —
+           it settles the trade-discount question before the
+           first phone call.
            Brand System: Legend Design Language
            ============================================ */
 
@@ -217,106 +224,7 @@
             margin-right: auto;
         }
 
-        /* ---- HOW IT WORKS ---- */
-        .how-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .how-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(35,31,32,0.05);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .how-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(35,31,32,0.1); }
-
-        .how-card.recommended {
-            border: 2px solid var(--orange);
-        }
-
-        .how-card.recommended::before {
-            content: 'RECOMMENDED';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            background: var(--orange);
-            color: var(--white);
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            padding: 0.35rem;
-        }
-
-        .how-card.recommended { padding-top: 3rem; }
-
-        .how-icon {
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.4rem;
-        }
-
-        .how-card:nth-child(1) .how-icon { background: var(--orange-light); color: var(--orange); }
-        .how-card:nth-child(2) .how-icon { background: var(--blue-light); color: var(--blue); }
-        .how-card:nth-child(3) .how-icon { background: rgba(35,31,32,0.06); color: var(--black); }
-
-        .how-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .how-tier-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--gray);
-            margin-bottom: 0.8rem;
-        }
-
-        .how-card p {
-            font-size: 0.85rem;
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .how-detail {
-            font-size: 0.8rem;
-            padding: 0.8rem;
-            background: var(--cream);
-            border-radius: 10px;
-            margin-bottom: 0.5rem;
-        }
-
-        .how-detail strong { color: var(--black); }
-
-        .how-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--black);
-            margin: 0.8rem 0 0.2rem;
-        }
-
-        .how-price-note {
-            font-size: 0.75rem;
-            color: var(--gray);
-        }
-
-        @media (max-width: 768px) {
-            .how-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-        }
-
-        /* ---- TERMS ACCORDION ---- */
+        /* ---- TERMS ---- */
         .terms-section {
             background: var(--white);
             border-radius: 16px;
@@ -343,6 +251,90 @@
 
         .term-item strong { color: var(--black); }
 
+        /* ---- PRICING ---- */
+        .price-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .price-grid { grid-template-columns: 1fr; }
+        }
+
+        .price-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 2px 12px rgba(35,31,32,0.05);
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .price-card.featured {
+            border-color: var(--orange);
+            box-shadow: 0 6px 22px rgba(248,153,33,0.18);
+        }
+
+        .price-card-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 0.8rem;
+        }
+
+        .price-card.featured .price-card-label { color: var(--orange); }
+
+        .price-card-qty {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+        }
+
+        .price-card-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--blue);
+            /* Playfair defaults to figures that read as "R1oo" at display size. */
+            font-variant-numeric: lining-nums;
+            font-feature-settings: "lnum" 1;
+        }
+
+        .price-card.featured .price-card-amount { color: var(--orange); }
+
+        .price-card-unit {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.4rem;
+        }
+
+        .price-card-note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--cream);
+        }
+
+        .price-foot {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.6rem 2rem;
+            box-shadow: 0 2px 12px rgba(35,31,32,0.05);
+            font-size: 0.86rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+
+        .price-foot strong { color: var(--black); }
+
         /* ---- APPLICATION FORM ---- */
         .form-section {
             background: var(--white);
@@ -363,9 +355,7 @@
             margin-bottom: 2rem;
         }
 
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
+        .form-group { margin-bottom: 1.2rem; }
 
         .form-row {
             display: grid;
@@ -434,81 +424,6 @@
             margin-bottom: 1.2rem;
         }
 
-        /* Tier selector cards */
-        .tier-selector {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 600px) {
-            .tier-selector { grid-template-columns: 1fr; }
-        }
-
-        .tier-option {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .tier-option input { position: absolute; opacity: 0; pointer-events: none; }
-
-        .tier-option .tier-card {
-            border: 2px solid var(--cream-dark);
-            border-radius: 12px;
-            padding: 1.2rem;
-            text-align: center;
-            transition: all 0.2s;
-            background: var(--white);
-        }
-
-        .tier-option input:checked + .tier-card {
-            border-color: var(--blue);
-            background: var(--blue-light);
-            box-shadow: 0 0 0 3px rgba(66,120,189,0.15);
-        }
-
-        .tier-option .tier-card:hover {
-            border-color: var(--blue);
-        }
-
-        .tier-card-name {
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .tier-card-detail {
-            font-size: 0.72rem;
-            color: var(--gray);
-        }
-
-        .tier-card-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-top: 0.4rem;
-        }
-
-        /* Debit order section */
-        .debit-section {
-            background: var(--orange-light);
-            border: 1.5px solid rgba(248,153,33,0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: none;
-        }
-
-        .debit-section.visible { display: block; }
-
-        .debit-section h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--orange-dark);
-            margin-bottom: 0.8rem;
-        }
-
         /* Checkbox */
         .checkbox-group {
             display: flex;
@@ -562,9 +477,7 @@
             pointer-events: none;
         }
 
-        .file-upload-label strong {
-            color: var(--blue);
-        }
+        .file-upload-label strong { color: var(--blue); }
 
         .file-upload-name {
             font-size: 0.78rem;
@@ -575,25 +488,6 @@
         }
 
         .file-upload-name.visible { display: block; }
-
-        /* Credit section (Tier 3) */
-        .credit-section {
-            background: rgba(35,31,32,0.03);
-            border: 1.5px solid rgba(35,31,32,0.1);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: none;
-        }
-
-        .credit-section.visible { display: block; }
-
-        .credit-section h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 0.8rem;
-        }
 
         /* Submit */
         .form-submit {
@@ -641,8 +535,8 @@
             margin: 0 auto;
         }
 
-        /* Error fallback — shown if the submit ever fails, so the lead is
-           never silently lost (see 2026-07-15 CORS incident). */
+        /* Error fallback — one-tap WhatsApp so a failed submit never loses the
+           lead (see 2026-07-15 CORS incident). */
         .error-banner {
             display: none;
             background: linear-gradient(135deg, var(--orange) 0%, #c9760f 100%);
@@ -704,9 +598,9 @@
             <span></span><span></span><span></span>
         </button>
         <div class="nav-links">
-            <a href="#tiers">Payment Terms</a>
+            <a href="#pricing">Pricing</a>
             <a href="#terms">Terms</a>
-            <a href="#apply" class="nav-cta">Apply Now</a>
+            <a href="#apply" class="nav-cta">Open Account</a>
         </div>
     </div>
     <div class="color-bar"><div class="cb-blue"></div><div class="cb-orange"></div><div class="cb-cream"></div><div class="cb-black"></div></div>
@@ -715,90 +609,73 @@
 <!-- ========== HERO ========== -->
 <section class="hero">
     <div class="hero-inner">
-        <div class="hero-pre">Client Supply Program</div>
-        <h1>Become a <em>Go Lucky</em> Client</h1>
-        <p>Fresh or we replace. Join our supply network and get the Western Cape's finest free range eggs delivered to your door, every week.</p>
-        <a href="#apply" class="hero-cta">Start Your Application</a>
+        <div class="hero-pre">Boutique &amp; Small Format Supply</div>
+        <h1>Great eggs, <em>by the tray</em></h1>
+        <p>Built for boutique hotels, guesthouses and small kitchens. Order exactly what your breakfast service needs, tray by tray, from a three-tray minimum and with no contract. Fresh or we replace.</p>
+        <a href="#apply" class="hero-cta">Open Your Account</a>
     </div>
 </section>
 
-<!-- ========== PAYMENT TERMS ==========
-     Pricing was removed from this page on 2026-07-22. This is now purely a
-     credit / account application: it captures the business, its documents and
-     the terms being requested. Price is agreed per client, off-page. Small
-     format and boutique buyers go to /boutique.html, which has its own
-     published rate. -->
-<section class="section" id="tiers">
-    <h2 class="section-title">Choose Your Payment Terms</h2>
-    <p class="section-sub">Tell us how you'd like to settle. Each option carries its own requirements, and the one you pick decides what we need from you below.</p>
+<!-- ========== PRICING ========== -->
+<section class="section" id="pricing">
+    <h2 class="section-title">Small Format Pricing</h2>
+    <p class="section-sub">Go Lucky XL Free Range, in 30-egg trays. One price at every quantity, published up front, so there is nothing to negotiate and nothing to wonder about.</p>
 
-    <div class="how-grid">
-        <!-- Tier 1: COD -->
-        <div class="how-card recommended" style="cursor:pointer" onclick="selectTier('tier_1')">
-            <div class="how-icon">&#9889;</div>
-            <div class="how-tier-label">Option 1</div>
-            <h3>Cash on Delivery</h3>
-            <p>Pay on delivery &mdash; the simplest way to do business. No credit checks, no paperwork, just fresh eggs and immediate settlement.</p>
-            <div class="how-detail"><strong>Payment:</strong> Cash / EFT on Delivery</div>
-            <div class="how-detail"><strong>Terms:</strong> Immediate (COD)</div>
-            <div class="how-price-note">Fastest account to open &mdash; nothing further required</div>
+    <div class="price-grid">
+        <div class="price-card featured">
+            <div class="price-card-label">Boutique Rate</div>
+            <div class="price-card-qty">Any quantity</div>
+            <div class="price-card-amount">R120</div>
+            <div class="price-card-unit">per 30-egg tray &middot; no VAT added</div>
+            <div class="price-card-note">Order exactly what you need, tray by tray. One flat rate at every quantity, so there is no box to reach and no threshold to chase. No small-order fee and no delivery surcharge.</div>
         </div>
+        <div class="price-card">
+            <div class="price-card-label">Minimum Order</div>
+            <div class="price-card-qty">3 trays</div>
+            <div class="price-card-amount">R360</div>
+            <div class="price-card-unit">90 eggs &middot; 7.5 dozen</div>
+            <div class="price-card-note">Our smallest delivery. Most boutique kitchens settle between three and eight trays a week, topped up on your regular delivery day.</div>
+        </div>
+    </div>
 
-        <!-- Tier 2: 7-14 Days -->
-        <div class="how-card" style="cursor:pointer" onclick="selectTier('tier_2')">
-            <div class="how-icon">&#128178;</div>
-            <div class="how-tier-label">Option 2</div>
-            <h3>Go Lucky Flow</h3>
-            <p>Weekly debit order or short-term EFT. Your stock arrives, payment settles within 7&ndash;14 days. Hands-free and hassle-free.</p>
-            <div class="how-detail"><strong>Payment:</strong> Debit Order / EFT</div>
-            <div class="how-detail"><strong>Terms:</strong> Net 7 &ndash; 14 Days from Invoice</div>
-            <div class="how-price-note">Debit order mandate required</div>
-        </div>
-
-        <!-- Tier 3: 30-60 Days -->
-        <div class="how-card" style="cursor:pointer" onclick="selectTier('tier_3')">
-            <div class="how-icon">&#127970;</div>
-            <div class="how-tier-label">Option 3</div>
-            <h3>Credit Account</h3>
-            <p>Extended 30 day terms for established businesses with trade references. Subject to strict credit vetting and approval.</p>
-            <div class="how-detail"><strong>Payment:</strong> EFT</div>
-            <div class="how-detail"><strong>Terms:</strong> Net 30 &ndash; 60 Days from Statement</div>
-            <div class="how-price-note">Subject to credit approval</div>
-        </div>
+    <div class="price-foot">
+        <strong>What a tray is.</strong> One tray holds 30 eggs, which is 2.5 dozen. Order any number of trays from three upward.<br>
+        <strong>What you are buying.</strong> Go Lucky XL Free Range, Grade 1, our premium extra-large egg. Delivered fresh on your chosen day.<br>
+        <strong>Delivery.</strong> Included. There is no small-drop charge and no fuel levy.<br>
+        <strong>Prices.</strong> R120 is what you pay. Fresh eggs in the shell carry no VAT, so there is nothing added at invoice. Held for the duration of your account unless farm gate costs move, in which case you get 7 days notice.
     </div>
 </section>
 
 <!-- ========== TERMS ========== -->
 <section class="section" id="terms">
     <h2 class="section-title">Supply Agreement Terms</h2>
-    <p class="section-sub">Transparency first. Here are the terms that govern every Go Lucky client agreement.</p>
+    <p class="section-sub">Transparency first. These are the standard conditions that govern every Go Lucky boutique account.</p>
 
     <div class="terms-section">
         <h3>Agreement Conditions</h3>
-        <div class="term-item"><strong>Pricing:</strong> Egg pricing is agreed directly between you and Go Lucky for your account, and confirmed in writing when the account is opened. The payment terms you select above tell us how you'd like to settle.</div>
-        <div class="term-item"><strong>Standing Order:</strong> Clients on Net 7&ndash;14 or Net 30 terms agree to a minimum weekly standing order. Adjustments must be communicated 48 hours prior to delivery.</div>
+        <div class="term-item"><strong>Pricing:</strong> Boutique and small format accounts are supplied at R120 per 30-egg tray at every quantity, with a minimum order of 3 trays per delivery. This pricing is fixed for this account type and is not subject to trade or volume discount.</div>
+        <div class="term-item"><strong>Payment Terms:</strong> The preference you select below tells us how you'd like to settle. We will confirm your terms in writing when your account is opened.</div>
         <div class="term-item"><strong>Retention of Title:</strong> Ownership of all goods remains with Go Lucky Free Range until full payment has been received.</div>
         <div class="term-item"><strong>Cession of Proceeds:</strong> If goods are sold prior to payment, the proceeds are deemed held in trust for Go Lucky Free Range and are ceded as security for the debt.</div>
-        <div class="term-item"><strong>Automatic Suspension:</strong> Supply is automatically suspended if payment is not received by the due date (e.g., bounced debit order or late EFT). Reinstatement may require COD terms.</div>
+        <div class="term-item"><strong>Automatic Suspension:</strong> Supply may be suspended if payment is not received by the agreed due date. Reinstatement may require settlement on delivery.</div>
         <div class="term-item"><strong>Price Adjustments:</strong> Go Lucky reserves the right to adjust pricing in line with farm gate cost increases. Clients will be notified 7 days in advance.</div>
-        <div class="term-item"><strong>Late Payment Interest:</strong> Net 30 credit accounts are subject to 2.5% per month interest on any late payments beyond agreed terms.</div>
         <div class="term-item"><strong>Freshness Guarantee:</strong> Fresh or we replace &mdash; every delivery, every time. If you're not happy with the quality, we make it right.</div>
     </div>
 </section>
 
 <!-- ========== APPLICATION FORM ========== -->
 <section class="section" id="apply">
-    <h2 class="section-title">Client Application</h2>
-    <p class="section-sub">Fill out the form below and we'll be in touch within 24 hours.</p>
+    <h2 class="section-title">Boutique Account Application</h2>
+    <p class="section-sub">Fill out the form below and we'll be in touch within 24 hours to get you set up. Your pricing is already set out above, so there is nothing left to negotiate.</p>
 
     <!-- Success message (hidden by default) -->
     <div class="success-banner" id="successBanner">
         <h3>Application Received</h3>
-        <p>Thank you &mdash; your application has been received. A member of the Go Lucky team will be in touch within a few hours.</p>
+        <p>Thank you &mdash; your application has been received. A member of the Go Lucky team will be in touch shortly to confirm your delivery schedule and get your first order on the route.</p>
     </div>
 
-    <!-- Error fallback (hidden by default) — gives a one-tap WhatsApp path so a
-         failed submission still reaches us instead of losing the applicant. -->
+    <!-- Error fallback (hidden by default) — one-tap WhatsApp path so a failed
+         submission still reaches us instead of losing the applicant. -->
     <div class="error-banner" id="errorBanner">
         <h3>We couldn't submit your application</h3>
         <p>Sorry &mdash; something went wrong on our side. Send us a quick WhatsApp with your details and we'll pick it up straight away, or try again in a moment.</p>
@@ -821,9 +698,10 @@
                 <label>Business Type</label>
                 <select name="business_type">
                     <option value="">Select...</option>
+                    <option>Boutique Hotel</option>
+                    <option>Guesthouse / B&amp;B</option>
+                    <option>Lodge</option>
                     <option>Restaurant / Cafe</option>
-                    <option>Hotel / Guesthouse</option>
-                    <option>Retailer / Deli</option>
                     <option>Bakery / Patisserie</option>
                     <option>Caterer</option>
                     <option>Other</option>
@@ -877,150 +755,19 @@
 
         <hr class="form-divider">
 
-        <!-- Tier Selection -->
-        <div class="form-divider-label">3. Select Your Payment Terms</div>
-
-        <div class="tier-selector">
-            <label class="tier-option">
-                <input type="radio" name="selected_tier" value="tier_1" checked>
-                <div class="tier-card">
-                    <div class="tier-card-name">Cash on Delivery</div>
-                    <div class="tier-card-detail">COD &middot; Immediate</div>
-                    <div class="tier-card-price" style="color: var(--orange)">No paperwork</div>
-                </div>
-            </label>
-            <label class="tier-option">
-                <input type="radio" name="selected_tier" value="tier_2">
-                <div class="tier-card">
-                    <div class="tier-card-name">Go Lucky Flow</div>
-                    <div class="tier-card-detail">Net 7&ndash;14 &middot; Debit Order</div>
-                    <div class="tier-card-price" style="color: var(--blue)">Mandate required</div>
-                </div>
-            </label>
-            <label class="tier-option">
-                <input type="radio" name="selected_tier" value="tier_3">
-                <div class="tier-card">
-                    <div class="tier-card-name">Credit Account</div>
-                    <div class="tier-card-detail">Net 30 &middot; EFT</div>
-                    <div class="tier-card-price">Credit vetting</div>
-                </div>
-            </label>
-        </div>
-
-        <!-- Debit Order Mandate (Tier 2 only) -->
-        <div class="debit-section" id="debitSection">
-            <h4>Debit Order Mandate (Required for Go Lucky Flow)</h4>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Account Holder Name <span class="req">*</span></label>
-                    <input type="text" name="bank_holder" placeholder="As it appears on your bank account">
-                </div>
-                <div class="form-group">
-                    <label>Bank Name <span class="req">*</span></label>
-                    <select name="bank_name">
-                        <option value="">Select bank...</option>
-                        <option>FNB</option>
-                        <option>Standard Bank</option>
-                        <option>Nedbank</option>
-                        <option>ABSA</option>
-                        <option>Capitec</option>
-                        <option>Investec</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Account Number <span class="req">*</span></label>
-                    <input type="text" name="bank_account" placeholder="Account number">
-                </div>
-                <div class="form-group">
-                    <label>Branch Code <span class="req">*</span></label>
-                    <input type="text" name="bank_branch" placeholder="e.g. 250655">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Account Type</label>
-                    <select name="bank_type">
-                        <option value="">Select...</option>
-                        <option>Cheque / Current</option>
-                        <option>Savings</option>
-                        <option>Business</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Preferred Collection Day</label>
-                    <select name="collection_day">
-                        <option value="">Select...</option>
-                        <option>Monday</option>
-                        <option>Tuesday</option>
-                        <option>Wednesday</option>
-                        <option>Thursday</option>
-                        <option>Friday</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- Credit Application (Tier 3 only) -->
-        <div class="credit-section" id="creditSection">
-            <h4>Credit Application (Required for Credit Account)</h4>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Director Full Name <span class="req">*</span></label>
-                    <input type="text" name="director_name" placeholder="Full legal name of director">
-                </div>
-                <div class="form-group">
-                    <label>Director ID Number <span class="req">*</span></label>
-                    <input type="text" name="director_id" placeholder="SA ID number">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Director Personal Address <span class="req">*</span></label>
-                <textarea name="director_address" rows="2" placeholder="Residential address of director"></textarea>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Trade Reference 1 — Business Name</label>
-                    <input type="text" name="trade_ref_1_name" placeholder="e.g. ABC Suppliers">
-                </div>
-                <div class="form-group">
-                    <label>Trade Reference 1 — Contact Number</label>
-                    <input type="tel" name="trade_ref_1_contact" placeholder="e.g. 021 555 1234">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Trade Reference 2 — Business Name</label>
-                    <input type="text" name="trade_ref_2_name" placeholder="e.g. XYZ Distributors">
-                </div>
-                <div class="form-group">
-                    <label>Trade Reference 2 — Contact Number</label>
-                    <input type="tel" name="trade_ref_2_contact" placeholder="e.g. 021 555 5678">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Monthly Credit Limit Requested (Rands)</label>
-                <input type="number" name="credit_limit_requested" placeholder="e.g. 10000" min="0" step="500">
-            </div>
-        </div>
-
-        <hr class="form-divider">
-
-        <!-- Estimated Volume -->
-        <div class="form-divider-label">4. Supply Details</div>
+        <!-- Supply & Payment -->
+        <div class="form-divider-label">3. Supply &amp; Payment Preference</div>
 
         <div class="form-row">
             <div class="form-group">
                 <label>Estimated Weekly Volume</label>
                 <select name="weekly_volume">
                     <option value="">Select...</option>
-                    <option>1 &ndash; 5 trays (30-egg trays)</option>
-                    <option>6 &ndash; 15 trays</option>
-                    <option>16 &ndash; 30 trays</option>
-                    <option>31 &ndash; 60 trays</option>
-                    <option>60+ trays</option>
+                    <option>1 &ndash; 3 trays (30 eggs per tray)</option>
+                    <option>4 &ndash; 7 trays</option>
+                    <option>8 &ndash; 11 trays</option>
+                    <option>12 trays or more</option>
+                    
                 </select>
             </div>
             <div class="form-group">
@@ -1038,27 +785,45 @@
             </div>
         </div>
 
+        <div class="form-row">
+            <div class="form-group">
+                <label>Preferred Payment Terms <span class="req">*</span></label>
+                <select name="payment_terms" id="paymentTerms" required>
+                    <option value="">Select...</option>
+                    <option>Cash / EFT on delivery (COD)</option>
+                    <option>Net 7 days from invoice</option>
+                    <option>Net 14 days from invoice</option>
+                    <option>Net 30 days / end of month</option>
+                    <option value="Other">Other (specify)</option>
+                </select>
+            </div>
+            <div class="form-group" id="paymentOtherWrap" style="display:none;">
+                <label>Please specify your preferred terms</label>
+                <input type="text" name="payment_terms_other" placeholder="e.g. 45 days, weekly EFT, etc.">
+            </div>
+        </div>
+
         <div class="form-group">
             <label>Anything else we should know?</label>
-            <textarea name="notes" rows="3" placeholder="Special requirements, product preferences, etc."></textarea>
+            <textarea name="notes" rows="3" placeholder="Product preferences, special requirements, etc."></textarea>
         </div>
 
         <hr class="form-divider">
 
-        <!-- Document Uploads -->
-        <div class="form-divider-label">5. Document Uploads</div>
+        <!-- Document Uploads (optional) -->
+        <div class="form-divider-label">4. Document Uploads <span style="font-weight:400; font-size:0.8rem; color:var(--gray);">(optional)</span></div>
 
         <div class="form-row">
             <div class="form-group">
-                <label>Upload ID Document <span class="req">*</span></label>
+                <label>Upload ID Document</label>
                 <div class="file-upload-wrap">
-                    <input type="file" name="id_document" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff" required>
+                    <input type="file" name="id_document" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff">
                     <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF</div>
                     <div class="file-upload-name" id="idDocName"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label>Upload Company Registration <span class="req" id="regDocReq">*</span></label>
+                <label>Upload Company Registration</label>
                 <div class="file-upload-wrap">
                     <input type="file" name="registration_doc" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff">
                     <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF</div>
@@ -1070,16 +835,11 @@
         <hr class="form-divider">
 
         <!-- Agreement & Signature -->
-        <div class="form-divider-label">6. Agreement & Signature</div>
+        <div class="form-divider-label">5. Agreement &amp; Signature</div>
 
         <div class="checkbox-group">
             <input type="checkbox" id="agreeTerms" name="agree_terms" required>
-            <label for="agreeTerms">I have read and agree to the <a href="#terms" style="color: var(--blue); text-decoration: underline;">Go Lucky Client Supply Agreement Terms</a> as outlined above. I understand that pricing will be agreed with me directly and confirmed in writing, and that late payments are subject to interest charges. <span class="req">*</span></label>
-        </div>
-
-        <div class="checkbox-group" id="agreeDebitWrap">
-            <input type="checkbox" id="agreeDebit" name="agree_debit">
-            <label for="agreeDebit">I authorise Go Lucky Free Range (CC) to issue debit order instructions to my bank for collection against the account provided above, in accordance with the terms of this agreement.</label>
+            <label for="agreeTerms">I have read and agree to the <a href="#terms" style="color: var(--blue); text-decoration: underline;">Go Lucky Client Supply Agreement Terms</a> as outlined above. I accept the <a href="#pricing" style="color: var(--blue); text-decoration: underline;">small format pricing</a> of R120 per 30-egg tray at every quantity, with a minimum order of 3 trays. <span class="req">*</span></label>
         </div>
 
         <div class="form-group">
@@ -1102,7 +862,7 @@
             </div>
         </div>
 
-        <button type="submit" class="form-submit" id="submitBtn">Submit Client Application</button>
+        <button type="submit" class="form-submit" id="submitBtn">Submit Application</button>
     </form>
 </section>
 
@@ -1122,13 +882,6 @@ const STORAGE_BUCKET = "partner-documents";
 // Currently Kyle's personal WhatsApp — swap for the dedicated line once it exists.
 const SUPPORT_WA = "27836424645";
 
-const HEADERS = {
-    "Content-Type": "application/json",
-    apikey: SUPABASE_KEY,
-    Authorization: `Bearer ${SUPABASE_KEY}`,
-    Prefer: "return=representation"
-};
-
 // ─── FILE UPLOAD UI ───────────────────────────────────────────────────────────
 document.querySelectorAll('.file-upload-wrap input[type="file"]').forEach(input => {
     const wrap = input.closest('.file-upload-wrap');
@@ -1145,48 +898,17 @@ document.querySelectorAll('.file-upload-wrap input[type="file"]').forEach(input 
         }
     });
 
-    // Drag & drop visual feedback
     wrap.addEventListener('dragover', e => { e.preventDefault(); wrap.classList.add('dragover'); });
     wrap.addEventListener('dragleave', () => wrap.classList.remove('dragover'));
     wrap.addEventListener('drop', () => wrap.classList.remove('dragover'));
 });
 
-// ─── SELECT TIER (from display cards) ─────────────────────────────────────────
-function selectTier(tier) {
-    const radio = document.querySelector(`input[name="selected_tier"][value="${tier}"]`);
-    if (radio) {
-        radio.checked = true;
-        radio.dispatchEvent(new Event('change'));
-    }
-    document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ─── TIER TOGGLE ──────────────────────────────────────────────────────────────
-const tierRadios = document.querySelectorAll('input[name="selected_tier"]');
-const debitSection = document.getElementById('debitSection');
-const creditSection = document.getElementById('creditSection');
-const agreeDebitWrap = document.getElementById('agreeDebitWrap');
-const regDocReq = document.getElementById('regDocReq');
-
-function updateTierSections() {
-    const selected = document.querySelector('input[name="selected_tier"]:checked').value;
-    const isTier2 = selected === 'tier_2';
-    const isTier3 = selected === 'tier_3';
-
-    // Debit order: Tier 2 only
-    debitSection.classList.toggle('visible', isTier2);
-    agreeDebitWrap.style.display = isTier2 ? 'flex' : 'none';
-
-    // Credit application: Tier 3 only
-    creditSection.classList.toggle('visible', isTier3);
-
-    // Company reg required for Tier 2 & 3, optional for Tier 1
-    regDocReq.style.display = (isTier2 || isTier3) ? 'inline' : 'none';
-}
-
-tierRadios.forEach(r => r.addEventListener('change', updateTierSections));
-// Initial state
-updateTierSections();
+// ─── PAYMENT TERMS "OTHER" TOGGLE ──────────────────────────────────────────────
+const paymentTerms = document.getElementById('paymentTerms');
+const paymentOtherWrap = document.getElementById('paymentOtherWrap');
+paymentTerms.addEventListener('change', () => {
+    paymentOtherWrap.style.display = paymentTerms.value === 'Other' ? 'block' : 'none';
+});
 
 // ─── UPLOAD FILE TO SUPABASE STORAGE ──────────────────────────────────────────
 async function uploadFile(file, folder, filename) {
@@ -1209,7 +931,6 @@ async function uploadFile(file, folder, filename) {
         throw new Error(`Upload failed for ${filename}: ${err}`);
     }
 
-    // Return the public path (will be accessed via storage URL)
     return `${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`;
 }
 
@@ -1220,9 +941,6 @@ document.getElementById('partnerForm').addEventListener('submit', async function
     const form = this;
     const btn = document.getElementById('submitBtn');
     document.getElementById('errorBanner').classList.remove('visible');
-    const tier = form.querySelector('input[name="selected_tier"]:checked').value;
-    const isTier2 = tier === 'tier_2';
-    const isTier3 = tier === 'tier_3';
 
     // ── Validate required fields ──
     let firstInvalid = null;
@@ -1246,15 +964,12 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         }
     }
 
-    // Business name
     if (!form.business_name.value.trim()) flagField(form.business_name, 'Business Name');
     else clearField(form.business_name);
 
-    // Delivery address
     if (!form.delivery_address.value.trim()) flagField(form.delivery_address, 'Delivery Address');
     else clearField(form.delivery_address);
 
-    // Contact fields
     if (!form.contact_name.value.trim()) flagField(form.contact_name, 'Contact Person');
     else clearField(form.contact_name);
     if (!form.contact_mobile.value.trim()) flagField(form.contact_mobile, 'Mobile Number');
@@ -1262,48 +977,20 @@ document.getElementById('partnerForm').addEventListener('submit', async function
     if (!form.contact_email.value.trim()) flagField(form.contact_email, 'Email Address');
     else clearField(form.contact_email);
 
-    // Tier 2: banking fields
-    if (isTier2) {
-        if (!form.bank_holder.value.trim()) flagField(form.bank_holder, 'Account Holder Name');
-        else clearField(form.bank_holder);
-        if (!form.bank_name.value) flagField(form.bank_name, 'Bank Name');
-        else clearField(form.bank_name);
-        if (!form.bank_account.value.trim()) flagField(form.bank_account, 'Account Number');
-        else clearField(form.bank_account);
-        if (!form.bank_branch.value.trim()) flagField(form.bank_branch, 'Branch Code');
-        else clearField(form.bank_branch);
-        if (!document.getElementById('agreeDebit').checked) {
-            missing.push('Debit Order Authorisation');
-        }
+    if (!form.payment_terms.value) flagField(form.payment_terms, 'Preferred Payment Terms');
+    else clearField(form.payment_terms);
+    if (form.payment_terms.value === 'Other' && !form.payment_terms_other.value.trim()) {
+        flagField(form.payment_terms_other, 'Specify Payment Terms');
+    } else if (form.payment_terms_other) {
+        clearField(form.payment_terms_other);
     }
 
-    // Tier 3: credit application fields
-    if (isTier3) {
-        if (!form.director_name.value.trim()) flagField(form.director_name, 'Director Full Name');
-        else clearField(form.director_name);
-        if (!form.director_id.value.trim()) flagField(form.director_id, 'Director ID Number');
-        else clearField(form.director_id);
-        if (!form.director_address.value.trim()) flagField(form.director_address, 'Director Address');
-        else clearField(form.director_address);
-    }
-
-    // File uploads
     const sigFile = form.signature_file.files[0];
     if (!sigFile) flagField(form.signature_file, 'Signature Upload');
     else clearField(form.signature_file);
 
-    const idFile = form.id_document.files[0];
-    if (!idFile) flagField(form.id_document, 'ID Document');
-    else clearField(form.id_document);
-
-    const regFile = form.registration_doc.files[0];
-    if ((isTier2 || isTier3) && !regFile) flagField(form.registration_doc, 'Company Registration');
-    else clearField(form.registration_doc);
-
-    // Terms checkbox
     if (!document.getElementById('agreeTerms').checked) missing.push('Agreement to Terms');
 
-    // Print name
     if (!form.print_name.value.trim()) flagField(form.print_name, 'Print Name');
     else clearField(form.print_name);
 
@@ -1315,20 +1002,22 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
     // ── Submit ──
     btn.disabled = true;
-    btn.textContent = 'Uploading documents...';
+    btn.textContent = 'Uploading signature...';
 
     try {
-        // Sanitise folder name
         const folder = form.business_name.value.trim().replace(/[^a-zA-Z0-9_\- ]/g, '').replace(/\s+/g, '_');
 
-        // Upload files to Supabase Storage
-        btn.textContent = 'Uploading signature...';
         const sigUrl = await uploadFile(sigFile, folder, 'signature');
 
-        btn.textContent = 'Uploading ID document...';
-        const idUrl = await uploadFile(idFile, folder, 'id_document');
+        let idUrl = null;
+        const idFile = form.id_document.files[0];
+        if (idFile) {
+            btn.textContent = 'Uploading ID document...';
+            idUrl = await uploadFile(idFile, folder, 'id_document');
+        }
 
         let regUrl = null;
+        const regFile = form.registration_doc.files[0];
         if (regFile) {
             btn.textContent = 'Uploading registration document...';
             regUrl = await uploadFile(regFile, folder, 'registration');
@@ -1336,12 +1025,33 @@ document.getElementById('partnerForm').addEventListener('submit', async function
 
         btn.textContent = 'Saving application...';
 
-        // Structured ambassador referral (chef_id) from the share link's ?rid=. Validate as a UUID
-        // so a bad value can't fail the referred_by_chef_id foreign key and break the submission.
-        const _rid = new URLSearchParams(window.location.search).get('rid');
-        const _ridValid = _rid && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(_rid);
+        // Resolve the chosen payment terms (free-text when "Other")
+        const payTerm = form.payment_terms.value === 'Other'
+            ? form.payment_terms_other.value.trim()
+            : form.payment_terms.value;
 
-        // Build payload
+        // Compose notes: payment terms + referral (if any) + free text. The
+        // table has no payment_terms column, so the choice rides in notes where
+        // it shows in the admin review modal. `[Referred by: x]` lets the modal
+        // auto-link a sales ambassador.
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('ref');
+        // rid = the ambassador's chef_id (structured referral). Only trust a real UUID — a bad
+        // value would fail the referred_by_chef_id foreign key and break the whole submission.
+        const rid = params.get('rid');
+        const ridValid = rid && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(rid);
+        const userNotes = form.notes.value.trim();
+        const noteParts = [];
+        // Stamp the accepted price schedule into notes so the review modal shows
+        // it without needing a new column on partner_applications.
+        noteParts.push('[Pricing: Boutique. R120/tray flat, min 3 trays]');
+        if (payTerm) noteParts.push(`[Payment terms: ${payTerm}]`);
+        if (ref) noteParts.push(`[Referred by: ${ref}]`);
+        if (userNotes) noteParts.push(userNotes);
+        const notes = noteParts.join(' ');
+
+        // Build payload — same table as the tiered form, tagged "boutique" so the
+        // admin review modal shows which price schedule this client accepted.
         const data = {
             business_name: form.business_name.value.trim(),
             business_type: form.business_type.value,
@@ -1352,45 +1062,26 @@ document.getElementById('partnerForm').addEventListener('submit', async function
             contact_role: form.contact_role.value.trim(),
             contact_mobile: form.contact_mobile.value.trim(),
             contact_email: form.contact_email.value.trim(),
-            selected_tier: tier,
-            bank_holder: form.bank_holder?.value.trim() || null,
-            bank_name: form.bank_name?.value || null,
-            bank_account: form.bank_account?.value.trim() || null,
-            bank_branch: form.bank_branch?.value.trim() || null,
-            bank_type: form.bank_type?.value || null,
-            collection_day: form.collection_day?.value || null,
+            selected_tier: 'boutique',
             weekly_volume: form.weekly_volume.value,
             delivery_day: form.delivery_day.value,
-            notes: form.notes.value.trim(),
+            notes: notes,
             print_name: form.print_name.value.trim(),
             designation: form.designation.value.trim(),
             agree_terms: true,
-            agree_debit: document.getElementById('agreeDebit').checked,
-            // File URLs
+            agree_debit: false,
             signature_image_url: sigUrl,
             signature_method: 'upload',
             id_document_url: idUrl,
             registration_doc_url: regUrl,
-            // Tier 3 credit fields
-            director_name: isTier3 ? form.director_name.value.trim() : null,
-            director_id: isTier3 ? form.director_id.value.trim() : null,
-            director_address: isTier3 ? form.director_address.value.trim() : null,
-            trade_ref_1_name: isTier3 ? form.trade_ref_1_name.value.trim() : null,
-            trade_ref_1_contact: isTier3 ? form.trade_ref_1_contact.value.trim() : null,
-            trade_ref_2_name: isTier3 ? form.trade_ref_2_name.value.trim() : null,
-            trade_ref_2_contact: isTier3 ? form.trade_ref_2_contact.value.trim() : null,
-            credit_limit_requested: isTier3 && form.credit_limit_requested.value ? Number(form.credit_limit_requested.value) : null,
-            // Meta
             status: 'pending_review',
             submitted_at: new Date().toISOString(),
-            // Structured ambassador referral so approval auto-links the rep.
-            ...(_ridValid ? { referred_by_chef_id: _rid } : {})
+            // Structured ambassador referral so approval auto-links the rep (not just the notes tag).
+            ...(ridValid ? { referred_by_chef_id: rid } : {})
         };
 
-        // Insert via the service-role write proxy. The anon insert policy on
-        // partner_applications was dropped in the RLS lockdown (Subject 27), so
-        // a direct REST POST now fails with 42501. The proxy returns the
-        // PostgREST representation array unchanged, so res shape is identical.
+        // Insert via the service-role write proxy (anon insert is blocked by RLS
+        // since Subject 27 — same path the tiered form uses).
         const res = await fetch('https://orders.golucky.co.za/.netlify/functions/api-write', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1402,26 +1093,42 @@ document.getElementById('partnerForm').addEventListener('submit', async function
             throw new Error(err);
         }
 
-        // Send notification email to applications@golucky.co.za
+        const inserted = await res.json().catch(() => null);
+        const applicationId = inserted && inserted[0] ? inserted[0].id : null;
+
+        // Notify Kyle (non-blocking)
         btn.textContent = 'Sending notification...';
         try {
-            await fetch(`${SUPABASE_URL}/functions/v1/notify-partner-application-`, {
+            await fetch('https://orders.golucky.co.za/.netlify/functions/push-send', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    apikey: SUPABASE_KEY,
-                    Authorization: `Bearer ${SUPABASE_KEY}`
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    business_name: data.business_name,
-                    contact_name: data.contact_name,
-                    contact_mobile: data.contact_mobile,
-                    contact_email: data.contact_email,
-                    selected_tier: data.selected_tier
+                    recipient: 'Kyle',
+                    title: 'New Boutique Application',
+                    body: `${data.business_name} (${data.contact_name}) · boutique R120/tray · ${payTerm}`,
+                    type: 'partner_application',
+                    url: applicationId ? `/?application=${applicationId}&tab=dashboard` : '/?tab=dashboard',
+                    data: {
+                        business_name: data.business_name,
+                        contact_name: data.contact_name,
+                        contact_mobile: data.contact_mobile,
+                        contact_email: data.contact_email,
+                        selected_tier: 'boutique'
+                    }
                 })
             });
+        } catch (pushErr) {
+            console.warn('Push notification failed:', pushErr);
+        }
+
+        // Email notify (non-blocking)
+        try {
+            await fetch('https://orders.golucky.co.za/.netlify/functions/notify-application', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, id: applicationId })
+            });
         } catch (emailErr) {
-            // Non-blocking — application saved even if email fails
             console.warn('Email notification failed:', emailErr);
         }
 
@@ -1451,7 +1158,7 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         btn.disabled = false;
-        btn.textContent = 'Submit Client Application';
+        btn.textContent = 'Submit Application';
     }
 });
 </script>
