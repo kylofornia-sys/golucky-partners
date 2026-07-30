@@ -224,8 +224,18 @@ function checkPin() {
 // ─── LOAD APPLICATIONS ───────────────────────────────────────────────────────
 async function loadApplications() {
     try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/partner_applications?select=*&order=submitted_at.desc`, {
-            headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+        // 2026-07-25: read via the main app's server-side proxy instead of the
+        // anon key. This table carries bank account numbers, director addresses
+        // and contact emails, and the anon key ships in every Go Lucky front
+        // end — it was readable by anyone who found it. The proxy holds the
+        // service key server-side; anon SELECT on partner_applications is
+        // revoked. Writes below still use the anon key (return=minimal, so they
+        // need no SELECT privilege) and the PDF edge function runs on the
+        // service role, so neither is affected.
+        const res = await fetch('https://orders.golucky.co.za/.netlify/functions/api-read', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ table: 'partner_applications', params: 'select=*&order=submitted_at.desc' })
         });
         allApps = await res.json();
         renderTable();
