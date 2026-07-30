@@ -1402,26 +1402,60 @@ document.getElementById('partnerForm').addEventListener('submit', async function
             throw new Error(err);
         }
 
-        // Send notification email to applications@golucky.co.za
+        // api-write returns the PostgREST representation array, so the new row's
+        // id is available for the review deep link.
+        const inserted = await res.json().catch(() => null);
+        const applicationId = inserted && inserted[0] ? inserted[0].id : null;
+
+        // Human tier name, read off the chosen card rather than hardcoded, so a
+        // future rename of a tier does not silently ship "tier_2" to Kyle's phone.
+        const tierLabel = form.querySelector('input[name="selected_tier"]:checked')
+            ?.closest('.tier-option')?.querySelector('.tier-card-name')?.textContent.trim() || tier;
+
+        // Notify Kyle. Both hops are non-blocking: the row is already saved, so a
+        // notification failure must never surface to the applicant as a failed submit.
+        //
+        // 2026-07-30: this form used to notify via the Supabase edge function
+        // notify-partner-application-, whose own copy of RESEND_API_KEY had gone
+        // stale. Resend answered 401, the function returned 500, and because the
+        // call sits inside this catch every application since then saved silently
+        // with no email and no push. boutique.html and apply.html already used the
+        // orders-site Netlify functions, which share the Resend key that daily
+        // chef invoices go out on. This form now matches them, and gains the phone
+        // push it never had.
         btn.textContent = 'Sending notification...';
         try {
-            await fetch(`${SUPABASE_URL}/functions/v1/notify-partner-application-`, {
+            await fetch('https://orders.golucky.co.za/.netlify/functions/push-send', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    apikey: SUPABASE_KEY,
-                    Authorization: `Bearer ${SUPABASE_KEY}`
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    business_name: data.business_name,
-                    contact_name: data.contact_name,
-                    contact_mobile: data.contact_mobile,
-                    contact_email: data.contact_email,
-                    selected_tier: data.selected_tier
+                    recipient: 'Kyle',
+                    title: 'New Account Application',
+                    body: `${data.business_name} (${data.contact_name}) · ${tierLabel}`,
+                    type: 'partner_application',
+                    url: applicationId ? `/?application=${applicationId}&tab=dashboard` : '/?tab=dashboard',
+                    data: {
+                        business_name: data.business_name,
+                        contact_name: data.contact_name,
+                        contact_mobile: data.contact_mobile,
+                        contact_email: data.contact_email,
+                        selected_tier: data.selected_tier
+                    }
                 })
             });
+        } catch (pushErr) {
+            console.warn('Push notification failed:', pushErr);
+        }
+
+        // Full application email to applications@golucky.co.za, deep-linked into
+        // the app's review modal.
+        try {
+            await fetch('https://orders.golucky.co.za/.netlify/functions/notify-application', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, id: applicationId })
+            });
         } catch (emailErr) {
-            // Non-blocking — application saved even if email fails
             console.warn('Email notification failed:', emailErr);
         }
 
