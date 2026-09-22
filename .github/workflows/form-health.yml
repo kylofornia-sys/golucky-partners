@@ -18,7 +18,10 @@ on:
     - cron: '*/30 * * * *'   # every 30 minutes
   workflow_dispatch:          # and on demand, from the Actions tab
   push:
-    branches: [main]
+    # Branches too, not just main: this is how the check gets run on demand by
+    # anyone who cannot open a terminal (it needs real internet access, which a
+    # laptop is not always near).
+    branches: [main, 'claude/**']
 
 permissions:
   contents: read
