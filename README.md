@@ -78,7 +78,10 @@ private bucket read through a signing function. POPIA s19 applies. This is
 enforced by tests.
 
 **A break can no longer be silent.** `.github/workflows/form-health.yml` runs
-`test/endpoint-contract.mjs` every 30 minutes. That test asserts the *browser*
+`test/endpoint-contract.mjs` and `test/upload-contract.mjs` every 30 minutes,
+covering both halves of a submission — the documents (Supabase Storage, anon
+key, storage RLS) and the application itself (the orders-site write proxy).
+The upload half runs first in a real submission and was previously unwatched. That test asserts the *browser*
 contract — the preflight and the response headers — which is the thing that
 actually breaks and the thing curl cannot see. On failure it opens a GitHub
 issue labelled `form-down`. It writes no data.
@@ -86,9 +89,14 @@ issue labelled `form-down`. It writes no data.
 ## Runbook — "the form is broken"
 
 ```bash
-node test/endpoint-contract.mjs     # says what broke and which file to fix
+node test/endpoint-contract.mjs     # can the application be saved?
+node test/upload-contract.mjs       # can the documents be attached?
 node test/lead-capture-fallback.test.mjs
 ```
+
+Each names the cause and the file to fix. You do not need a terminal: pushing
+any `claude/**` branch, or using **Run workflow** on the Actions tab, runs all
+three on GitHub's servers and shows the result.
 
 1. **Rescue the people first.** Netlify → this site → **Forms** →
    `partner-application-fallback`. Every applicant who hit the outage is in

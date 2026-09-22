@@ -47,6 +47,13 @@ jobs:
       # Only on a scheduled run: a failure means production is broken for
       # applicants right now, so it needs to be visible somewhere other than a
       # workflow log nobody reads.
+      # The other half of a submission, and the half that runs FIRST. The form
+      # uploads ID / registration / signature before it saves any field, so a
+      # blocked upload kills the whole thing. Writes one ~20-byte file to a
+      # fixed path, overwritten each run.
+      - name: Can an applicant upload their documents?
+        run: node test/upload-contract.mjs
+
       - name: Raise the alarm
         if: failure() && github.event_name == 'schedule'
         env:
