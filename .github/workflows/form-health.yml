@@ -1,0 +1,73 @@
+# Is the public credit-application form actually able to submit, right now?
+#
+# The form has broken three times without anyone noticing (RLS lockdown,
+# missing CORS, stale mail key). Each time it was found by an applicant who
+# had already given up — Chantal Duncan emailed "getting an error message the
+# whole time" on 2026-07-15, weeks after the form went dead for EVERYONE.
+#
+# Nothing watched it. That was the real defect. This watches it.
+#
+# The check writes no data: it names a table the proxy does not allow, so a
+# healthy proxy refuses it. What is being tested is the browser CORS contract
+# around that refusal, which is what actually breaks. See
+# test/endpoint-contract.mjs.
+name: form health
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # every 30 minutes
+  workflow_dispatch:          # and on demand, from the Actions tab
+  push:
+    # Branches too, not just main: this is how the check gets run on demand by
+    # anyone who cannot open a terminal (it needs real internet access, which a
+    # laptop is not always near).
+    branches: [main, 'claude/**']
+
+permissions:
+  contents: read
+  issues: write               # to raise the alarm where it will be seen
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Unit tests for the lead-capture safety net
+        run: node test/lead-capture-fallback.test.mjs
+
+      - name: Can a real browser submit the form?
+        id: contract
+        run: node test/endpoint-contract.mjs
+
+      # Only on a scheduled run: a failure means production is broken for
+      # applicants right now, so it needs to be visible somewhere other than a
+      # workflow log nobody reads.
+      # The other half of a submission, and the half that runs FIRST. The form
+      # uploads ID / registration / signature before it saves any field, so a
+      # blocked upload kills the whole thing. Writes one ~20-byte file to a
+      # fixed path, overwritten each run.
+      - name: Can an applicant upload their documents?
+        run: node test/upload-contract.mjs
+
+      - name: Raise the alarm
+        if: failure() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --state open --label form-down --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            echo "Issue #$existing is already open; adding a note rather than a duplicate."
+            gh issue comment "$existing" --body "Still failing as of $(date -u '+%Y-%m-%d %H:%M UTC'). Run: $RUN_URL"
+            exit 0
+          fi
+          gh label create form-down --color B60205 --description "Public application form cannot submit" 2>/dev/null || true
+          gh issue create --label form-down \
+            --title "Credit application form is DOWN for applicants" \
+            --body-file .github/form-down-issue.md
