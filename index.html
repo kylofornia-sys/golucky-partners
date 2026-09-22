@@ -806,6 +806,15 @@
         <p class="err-detail" id="errDetail"></p>
     </div>
 
+    <!-- Shown when the primary save failed but the independent capture path
+         caught the lead. Deliberately worded so it is TRUE in that state: we
+         genuinely have their details and will call them, but the application
+         itself is not yet on file, so it does not claim to be. -->
+    <div class="success-banner" id="rescuedBanner">
+        <h3>We've Got Your Details</h3>
+        <p>Thank you &mdash; we hit a technical problem saving the full application, but your contact details reached us safely and a member of the Go Lucky team will call you shortly to finish it off. There is no need to submit again.</p>
+    </div>
+
     <form class="form-section" id="partnerForm" novalidate>
 
         <!-- Business Information -->
@@ -1424,8 +1433,9 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         // chef invoices go out on. This form now matches them, and gains the phone
         // push it never had.
         btn.textContent = 'Sending notification...';
+        let _pushOk = false, _emailOk = false;
         try {
-            await fetch('https://orders.golucky.co.za/.netlify/functions/push-send', {
+            const _pushRes = await fetch('https://orders.golucky.co.za/.netlify/functions/push-send', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -1443,6 +1453,7 @@ document.getElementById('partnerForm').addEventListener('submit', async function
                     }
                 })
             });
+            _pushOk = !!(_pushRes && _pushRes.ok);
         } catch (pushErr) {
             console.warn('Push notification failed:', pushErr);
         }
@@ -1450,13 +1461,32 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         // Full application email to applications@golucky.co.za, deep-linked into
         // the app's review modal.
         try {
-            await fetch('https://orders.golucky.co.za/.netlify/functions/notify-application', {
+            const _emailRes = await fetch('https://orders.golucky.co.za/.netlify/functions/notify-application', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...data, id: applicationId })
             });
+            _emailOk = !!(_emailRes && _emailRes.ok);
         } catch (emailErr) {
             console.warn('Email notification failed:', emailErr);
+        }
+
+        // The row is saved, but if NEITHER notification landed, nobody at Go
+        // Lucky knows this application exists. That is precisely how the
+        // 2026-07-30 failure ran unnoticed: a stale Resend key made the
+        // notifier answer 500 for weeks while every applicant saw "success".
+        //
+        // Note a non-2xx response does NOT reject a fetch, so .ok has to be
+        // tested explicitly. The previous bare `await fetch()` inside a
+        // try/catch could only ever catch a network error, never a 500 — which
+        // is why that outage produced no warning even in the console.
+        if (!_pushOk && !_emailOk) {
+            try {
+                await window.GLLeadFallback.capture(
+                    data, 'notify_failed',
+                    'row saved (' + (applicationId || 'id unknown') +
+                    ') but push and email both failed');
+            } catch (_e) { /* nothing further we can do from here */ }
         }
 
         // Show success
@@ -1467,6 +1497,26 @@ document.getElementById('partnerForm').addEventListener('submit', async function
     } catch (err) {
         console.error('Submit error:', err);
 
+        // The primary save failed. Before telling the applicant anything,
+        // capture what they typed through the independent path, so a broken
+        // proxy costs us a form submission rather than a customer. This also
+        // means the outage reports itself on the FIRST affected applicant
+        // instead of surfacing weeks later in a complaint.
+        btn.textContent = 'Saving your details...';
+        let _rescued = false;
+        try {
+            _rescued = await window.GLLeadFallback.captureFromForm(
+                form, 'save_failed', err && err.message);
+        } catch (_e) { _rescued = false; }
+
+        if (_rescued) {
+            form.style.display = 'none';
+            document.getElementById('rescuedBanner').classList.add('visible');
+            window.scrollTo({ top: document.getElementById('apply').offsetTop - 80, behavior: 'smooth' });
+            return;
+        }
+
+        // Both paths are down. Hand them a human.
         // Build a pre-filled WhatsApp message from what they already entered, so
         // the applicant reaches us in one tap even if the submit failed.
         const biz = form.business_name.value.trim();
@@ -1489,6 +1539,46 @@ document.getElementById('partnerForm').addEventListener('submit', async function
     }
 });
 </script>
+
+
+    <!-- ── Netlify Forms detection stub ───────────────────────────────────────
+         Not for humans: Netlify's build-time bot scans the deployed HTML for a
+         form with this name, and will reject a JS submission to a form it has
+         never seen. It must therefore be declared statically, and every field
+         that may be submitted must be declared with it — undeclared fields are
+         dropped on receipt.
+
+         This is the lead-capture safety net's landing pad. It shares NOTHING
+         with the primary save path (Supabase via the orders-site write proxy):
+         different origin policy, different vendor, different credentials. That
+         independence is the point — see js/lead-capture-fallback.js.
+
+         Contact-and-callback fields only. No bank, identity or document data
+         may be added here. -->
+    <form name="partner-application-fallback" data-netlify="true"
+          netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="partner-application-fallback">
+      <input type="text" name="bot-field">
+      <input type="text" name="business_name">
+      <input type="text" name="business_type">
+      <input type="text" name="contact_name">
+      <input type="text" name="contact_mobile">
+      <input type="text" name="contact_email">
+      <input type="text" name="delivery_address">
+      <input type="text" name="delivery_day">
+      <input type="text" name="weekly_volume">
+      <input type="text" name="selected_tier">
+      <input type="text" name="payment_terms">
+      <input type="text" name="payment_terms_other">
+      <input type="text" name="notes">
+      <input type="text" name="failure_reason">
+      <input type="text" name="failure_detail">
+      <input type="text" name="source_page">
+      <input type="text" name="captured_at">
+      <input type="text" name="user_agent">
+    </form>
+
+    <script src="/js/lead-capture-fallback.js"></script>
 
 </body>
 </html>
