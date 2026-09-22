@@ -1061,7 +1061,7 @@
             <div class="form-group">
                 <label>Upload ID Document <span class="req">*</span></label>
                 <div class="file-upload-wrap">
-                    <input type="file" name="id_document" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff" required>
+                    <input type="file" name="id_document" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff,.heic,.heif,.webp,image/*,application/pdf" required>
                     <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF</div>
                     <div class="file-upload-name" id="idDocName"></div>
                 </div>
@@ -1069,7 +1069,7 @@
             <div class="form-group">
                 <label>Upload Company Registration <span class="req" id="regDocReq">*</span></label>
                 <div class="file-upload-wrap">
-                    <input type="file" name="registration_doc" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff">
+                    <input type="file" name="registration_doc" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff,.heic,.heif,.webp,image/*,application/pdf">
                     <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF</div>
                     <div class="file-upload-name" id="regDocName"></div>
                 </div>
@@ -1094,7 +1094,7 @@
         <div class="form-group">
             <label>Upload Signature (photo or scan of your handwritten signature) <span class="req">*</span></label>
             <div class="file-upload-wrap">
-                <input type="file" name="signature_file" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff" required>
+                <input type="file" name="signature_file" accept=".jpg,.jpeg,.png,.pdf,.tif,.tiff,.heic,.heif,.webp,image/*,application/pdf" required>
                 <div class="file-upload-label"><strong>Choose file</strong> or drag &amp; drop<br>JPG, PNG, or PDF — a clear photo of your handwritten signature</div>
                 <div class="file-upload-name" id="sigFileName"></div>
             </div>
@@ -1129,6 +1129,13 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const STORAGE_BUCKET = "partner-documents";
 // Fallback WhatsApp number for the error path (international format, no +).
 // Currently Kyle's personal WhatsApp — swap for the dedicated line once it exists.
+const ORIGINAL_BTN_LABEL = document.getElementById('submitBtn').textContent;
+// The error banner is reworded in place for a problem the applicant can fix,
+// so its original copy is kept to restore if a genuine outage follows in the
+// same page session. Otherwise a real failure would inherit "check your
+// attachment", which would be actively misleading.
+const ERR_TITLE = document.querySelector('#errorBanner h3').textContent;
+const ERR_BODY  = document.querySelector('#errorBanner p').textContent;
 const SUPPORT_WA = "27638128928";
 
 const HEADERS = {
@@ -1198,7 +1205,21 @@ tierRadios.forEach(r => r.addEventListener('change', updateTierSections));
 updateTierSections();
 
 // ─── UPLOAD FILE TO SUPABASE STORAGE ──────────────────────────────────────────
+// Supabase Storage enforces a per-file limit server-side; this catches an
+// oversized file before a slow upload wastes the applicant's data and time.
+// Modern phone photos routinely exceed this, and an ID photographed in good
+// light is the single most likely file to do so.
+const MAX_UPLOAD_MB = 10;
+
 async function uploadFile(file, folder, filename) {
+    if (file && file.size > MAX_UPLOAD_MB * 1048576) {
+        const e = new Error(
+            `That file is too large (${(file.size / 1048576).toFixed(1)}MB). ` +
+            `Please attach a smaller photo or PDF — under ${MAX_UPLOAD_MB}MB. ` +
+            `On a phone, choosing a smaller size when you share the photo usually does it.`);
+        e.userFixable = true;
+        throw e;
+    }
     const ext = file.name.split('.').pop().toLowerCase();
     const path = `${folder}/${filename}.${ext}`;
 
@@ -1215,7 +1236,31 @@ async function uploadFile(file, folder, filename) {
 
     if (!res.ok) {
         const err = await res.text();
-        throw new Error(`Upload failed for ${filename}: ${err}`);
+
+        // Say what actually went wrong. A raw Supabase error body tells the
+        // applicant nothing, and told us nothing either: "Upload failed" was
+        // indistinguishable from an outage, so a phone photo that was simply
+        // too large looked exactly like a platform failure.
+        //
+        // The two marked `userFixable` are the applicant's to solve, and they
+        // CAN solve them, so they get a specific instruction and stay on the
+        // form rather than being handed off.
+        let msg, userFixable = false;
+        if (res.status === 413) {
+            msg = `That file is too large (${(file.size / 1048576).toFixed(1)}MB). ` +
+                  `Please attach a smaller photo or PDF — under ${MAX_UPLOAD_MB}MB.`;
+            userFixable = true;
+        } else if (res.status === 415 || /mime|content.type/i.test(err)) {
+            msg = `That file type isn't supported. Please attach a JPG, PNG or PDF.`;
+            userFixable = true;
+        } else if (res.status === 403 || res.status === 401 || /row-level security|policy/i.test(err)) {
+            msg = `Document upload is temporarily unavailable (${res.status}).`;
+        } else {
+            msg = `Upload failed for ${filename} (${res.status}): ${err}`;
+        }
+        const e = new Error(msg);
+        e.userFixable = userFixable;
+        throw e;
     }
 
     // Return the public path (will be accessed via storage URL)
@@ -1502,6 +1547,22 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         // proxy costs us a form submission rather than a customer. This also
         // means the outage reports itself on the FIRST affected applicant
         // instead of surfacing weeks later in a complaint.
+        // A file that is too large or the wrong type is the applicant's to fix,
+        // and they can fix it in seconds. Diverting them to a "we'll call you"
+        // path here would be worse service, not better: tell them plainly and
+        // let them finish. Nothing is lost — they are still on the form.
+        if (err && err.userFixable) {
+            document.getElementById('errDetail').textContent = '';
+            const fixBanner = document.getElementById('errorBanner');
+            fixBanner.querySelector('h3').textContent = 'Please check your attachment';
+            fixBanner.querySelector('p').textContent = err.message;
+            fixBanner.classList.add('visible');
+            fixBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            btn.disabled = false;
+            btn.textContent = ORIGINAL_BTN_LABEL;
+            return;
+        }
+
         btn.textContent = 'Saving your details...';
         let _rescued = false;
         try {
@@ -1517,6 +1578,8 @@ document.getElementById('partnerForm').addEventListener('submit', async function
         }
 
         // Both paths are down. Hand them a human.
+        document.querySelector('#errorBanner h3').textContent = ERR_TITLE;
+        document.querySelector('#errorBanner p').textContent = ERR_BODY;
         // Build a pre-filled WhatsApp message from what they already entered, so
         // the applicant reaches us in one tap even if the submit failed.
         const biz = form.business_name.value.trim();
